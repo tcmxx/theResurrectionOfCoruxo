@@ -21,9 +21,9 @@ public class CameraMove : MonoBehaviour {
 
 
 	void InputControl(){
-		float vertical = Input.GetAxis ("Vertical");
+		float x = Input.GetAxis ("Horizontal");
 
-
+		transform.Translate (Vector3.right*x);
 	}
 
 
