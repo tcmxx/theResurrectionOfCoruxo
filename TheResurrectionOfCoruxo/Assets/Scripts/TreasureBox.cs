@@ -11,6 +11,12 @@ public class TreasureBox : MonoBehaviour {
 	bool opened = false;
 	bool treasureShown = false;
 
+
+
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
 	

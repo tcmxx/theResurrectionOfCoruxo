@@ -15,7 +15,10 @@ public class BurningBox : Flamable {
 
 	float currentBurningTime = 0;
 
-
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
 	
@@ -45,6 +48,7 @@ public class BurningBox : Flamable {
 			GameObject.Instantiate (legBurntPref, transform.position,Quaternion.identity);
 		} else {
 			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+			GameObject.Instantiate (ashPrefeb, transform.position,Quaternion.identity);
 		}
 	}
 

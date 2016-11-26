@@ -156,8 +156,8 @@ public class CameraMove : MonoBehaviour {
 				if (transform.localPosition.y > offY2) {
 					if (y > 0)
 						y = 0; //Cannot go up more than offY (starts from offset = 5)
-					if (x < 0)
-						x = 0;
+					//if (x < 0)
+					//	x = 0;
 				}
 			}
 
@@ -172,8 +172,8 @@ public class CameraMove : MonoBehaviour {
 					x = 0;
 				}
 			}
-			if ((transform.localPosition.y > offYPuzzle6 && transform.localPosition.y < offY2) || transform.localPosition.y < offYPuzzle6) {
-				if (transform.localPosition.x < offRight5) {
+			if ((transform.localPosition.y > offYPuzzle6 && transform.localPosition.y < offY2-2) || transform.localPosition.y < offYPuzzle6) {
+				if (transform.localPosition.x < offRight6) {
 					if (x < 0) 
 						x = 0;
 					

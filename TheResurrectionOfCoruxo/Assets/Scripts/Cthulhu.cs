@@ -23,7 +23,10 @@ public class Cthulhu : MonoBehaviour {
 
 	bool wakeUp = false;
 
-
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;

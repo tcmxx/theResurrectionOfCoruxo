@@ -9,7 +9,10 @@ public class Monster : MonoBehaviour {
 
 	bool empty = false;
 
-
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
 	

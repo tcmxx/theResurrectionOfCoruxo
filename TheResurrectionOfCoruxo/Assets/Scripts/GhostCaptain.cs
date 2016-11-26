@@ -17,6 +17,7 @@ public class GhostCaptain : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("ChangeDirection", 1.0f,changingRate);
+
 	}
 	
 	// Update is called once per frame

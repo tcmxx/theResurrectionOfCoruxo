@@ -18,6 +18,13 @@ public class Boat : MonoBehaviour {
 	bool dragging = false;
 	int dragTimes = 0;
 
+
+
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
