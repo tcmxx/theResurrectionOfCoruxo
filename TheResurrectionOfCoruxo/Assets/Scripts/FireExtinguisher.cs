@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UsableObject : MonoBehaviour {
-
-
-
+public class FireExtinguisher : UsableObject {
 
 	// Use this for initialization
 	void Start () {
@@ -17,29 +14,25 @@ public class UsableObject : MonoBehaviour {
 	}
 
 
-
-
 	/// <summary>
 	/// Use the object at position x, y on object obj
 	/// </summary>
 	/// <param name="posX">Position x.</param>
 	/// <param name="posY">Position y.</param>
 	/// <param name="obj">Object.</param>
-	public virtual bool Use(float posX, float posY, GameObject obj = null){
-		//set the physics
-		GetComponent <Collider2D>().enabled = true;
-		GetComponent <Rigidbody2D>().isKinematic = false;
+	public override bool Use(float posX, float posY, GameObject obj = null){
+		base.Use (posX, posY, obj);
+		if (obj != null) {
+			BurningBox box = obj.GetComponent <BurningBox> ();
+			if (box != null) {
+				box.PutOutFire ();
+				//Destroy (gameObject, 0.1f);
+				return true;
+			}
+		}
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;
 	}
-
-	public virtual void Obtain(){
-		//set the physical state
-		GetComponent <Collider2D>().enabled = false;
-		GetComponent <Rigidbody2D>().isKinematic = true;
-
-	}
-
 
 
 }

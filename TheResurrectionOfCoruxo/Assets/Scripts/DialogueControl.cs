@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class DialogueControl : MonoBehaviour {
 
@@ -9,8 +10,10 @@ public class DialogueControl : MonoBehaviour {
 	public GameObject dialogText;
 
 	bool isInDialogue = false;
+	bool allowClick = false;
 
 
+	int currentDialog = -1;
 
 	void Awake(){
 		dialogueControl = this;
@@ -18,6 +21,7 @@ public class DialogueControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		dialogText.SetActive (false);
 	
 	}
 	
@@ -25,8 +29,12 @@ public class DialogueControl : MonoBehaviour {
 	void Update () {
 
 		if (isInDialogue) {
-			if (Input.GetMouseButtonDown (0)) {
+			
+			if (Input.GetMouseButtonDown (0) && allowClick) {
+				allowClick = false;
+				EndDialog ();
 			}
+			allowClick = true;
 		}
 	
 	}
@@ -34,6 +42,8 @@ public class DialogueControl : MonoBehaviour {
 
 
 	public void StartDialogue(int dialogueNum){
+		currentDialog = dialogueNum;
+		isInDialogue = true;
 		dialogText.SetActive (true);
 		dialogText.GetComponent <Text>().text = Dialogues.dialogues[dialogueNum];
 		SetControlsActive (false);
@@ -44,6 +54,10 @@ public class DialogueControl : MonoBehaviour {
 
 		dialogText.SetActive (false);
 		SetControlsActive (true);
+		isInDialogue = false;
+		if (Dialogues.nextDialogue[currentDialog] != -1) {
+			StartDialogue (Dialogues.nextDialogue[currentDialog]);
+		}
 
 	}
 
@@ -59,8 +73,8 @@ public class DialogueControl : MonoBehaviour {
 class Dialogues{
 
 	public static readonly string[] dialogues = new string[10] {
-		"test 1",
-		"test 2",
+		"I am Awake. ",
+		"Please found me 8 legs",
 		"test 3",
 		"test 4",
 		"test 5",
@@ -69,6 +83,19 @@ class Dialogues{
 		"test 8",
 		"test 9",
 		"test 10",
+	};
+
+	public static readonly int[] nextDialogue = new int[10] {
+		1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
+		-1,
 	};
 
 

@@ -7,10 +7,11 @@ public class Interactable : MonoBehaviour {
 
 	public UnityEvent OnClickRight;
 	public UnityEvent OnClickLeft;
-
-
+	public UnityEvent OnClickUp;
+	public UnityEvent OnDrag;
 
 	void OnMouseDown(){
+		
 		if (PlayerControl.playerControl.rightHand.state == RightHand.RightHandState.None) {
 			if (Input.GetMouseButtonDown (0)) {
 				OnClickLeft.Invoke ();
@@ -19,7 +20,28 @@ public class Interactable : MonoBehaviour {
 				OnClickRight.Invoke ();
 			}
 		}
+
+
 	}
+
+
+	void OnMouseDrag(){
+
+		if (PlayerControl.playerControl.rightHand.state == RightHand.RightHandState.None) {
+			OnDrag.Invoke ();
+		}
+
+	}
+
+	void OnMouseUp(){
+		
+		if (PlayerControl.playerControl.rightHand.state == RightHand.RightHandState.None) {
+			OnClickUp.Invoke ();
+		}
+	}
+
+
+
 
 
 }

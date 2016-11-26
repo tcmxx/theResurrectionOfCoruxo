@@ -10,7 +10,7 @@ public class PlayerControl : MonoBehaviour {
 
 
 	public RightHand rightHand;
-
+	public LeftHand leftHand;
 
 	public LayerMask usableLayerMask;
 	public LayerMask notAllowPutLayerMask;
@@ -19,7 +19,7 @@ public class PlayerControl : MonoBehaviour {
 
 
 
-
+	bool controlsEnable = true;
 
 
 	void Awake(){
@@ -35,22 +35,32 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		InputControl ();
+		if (controlsEnable) {
+			InputControl ();
+		}
 	}
 
 
 
+	public void DisableControls(){
+		controlsEnable = false;
+	}
+
+	public void EnableControls(){
+		controlsEnable = true;
+	}
+
 
 	void InputControl(){
 
-		if(Input.GetMouseButtonDown (0)){
+		if (Input.GetMouseButtonDown (0)) {
 
 
 
 			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
-			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, usableLayerMask);
+			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, usableLayerMask);
 
-			RaycastHit2D notallowPutHit =  Physics2D.Raycast (mouseWorldPos, Vector2.zero, notAllowPutLayerMask);
+			RaycastHit2D notallowPutHit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, notAllowPutLayerMask);
 
 
 
@@ -63,13 +73,27 @@ public class PlayerControl : MonoBehaviour {
 				}
 			} else if (rightHand.state == RightHand.RightHandState.Holding && notallowPutHit.collider == null) {
 				if (hit.collider) {
-					 rightHand.UseCurrentUsable (mouseWorldPos.x, mouseWorldPos.y, hit.collider.gameObject);
+					rightHand.UseCurrentUsable (mouseWorldPos.x, mouseWorldPos.y, hit.collider.gameObject);
 				} else {
 					rightHand.UseCurrentUsable (mouseWorldPos.x, mouseWorldPos.y);
 				}
 			}
 				
 
+		} else if (Input.GetMouseButtonDown (1)) {
+
+			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
+			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, usableLayerMask);
+
+			Debug.Log ("mouse down at " + mouseWorldPos);
+
+			if (leftHand.state == LeftHand.LeftHandState.None) {
+				if (hit.collider) {
+					leftHand.UseTo (mouseWorldPos.x, mouseWorldPos.y, hit.collider.gameObject);
+				} else {
+					leftHand.UseTo (mouseWorldPos.x, mouseWorldPos.y);
+				}
+			} 
 		}
 
 	}

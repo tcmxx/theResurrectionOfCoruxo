@@ -61,7 +61,6 @@ public class RightHand : MonoBehaviour {
 
 
 		if (currentUsable != null) {
-			currentUsable.Use (posX, posY, obj);
 
 			StartCoroutine (UseAnimation(currentUsable, posX, posY, obj));
 
@@ -77,7 +76,8 @@ public class RightHand : MonoBehaviour {
 
 
 	public void PickAt(UsableObject usable){
-
+		if (usable == null)
+			return;
 		StartCoroutine (PickAnimation(usable));
 
 		currentUsable = usable;
@@ -105,9 +105,7 @@ public class RightHand : MonoBehaviour {
 
 		usable.transform.SetParent (null);
 
-		//set the physics
-		//usable.GetComponent <Collider2D>().enabled = true;
-		usable.GetComponent <Rigidbody2D>().isKinematic = false;
+
 
 
 		handState = RightHandState.ThrowingBack;
@@ -131,10 +129,7 @@ public class RightHand : MonoBehaviour {
 
 		usable.Obtain ();
 		usable.transform.SetParent (this.transform);
-
-		//set the physical state
-		//usable.GetComponent <Collider2D>().enabled = false;
-		usable.GetComponent <Rigidbody2D>().isKinematic = true;
+		usable.transform.localPosition = Vector3.zero;
 
 		handState = RightHandState.PickingBack;
 
