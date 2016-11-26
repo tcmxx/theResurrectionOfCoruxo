@@ -1,11 +1,12 @@
 fileFormatVersion: 2
-guid: 05c94dea1210449d7a5c0f622181ae49
-timeCreated: 1480170171
+guid: f680aa0541fdd2d449a4fe654696d60f
+timeCreated: 1480168679
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Monster2_0
-    21300002: Monster2_1
+    21300000: backgroundObject2_0
+    21300002: backgroundObject2_1
+    21300004: backgroundObject2_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,28 +56,41 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Monster2_0
+      name: backgroundObject2_0
       rect:
         serializedVersion: 2
-        x: 124
-        y: 412
-        width: 189
-        height: 123
-      alignment: 9
-      pivot: {x: 0.9441155, y: 0.3820503}
+        x: 181
+        y: 94
+        width: 689
+        height: 609
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Monster2_1
+      name: backgroundObject2_1
       rect:
         serializedVersion: 2
-        x: 596
-        y: 205
-        width: 450
-        height: 494
+        x: 1254
+        y: 119
+        width: 615
+        height: 385
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: backgroundObject2_2
+      rect:
+        serializedVersion: 2
+        x: 2053
+        y: 120
+        width: 419
+        height: 389
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

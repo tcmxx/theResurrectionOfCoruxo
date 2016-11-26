@@ -1,12 +1,15 @@
 fileFormatVersion: 2
-guid: f6b72321b02354b6aaedeb100aa3b0fe
-timeCreated: 1480168697
+guid: c7ff2a6c16cca394cbbd50e8d5da4c93
+timeCreated: 1480168663
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: RockMountain_0
-    21300002: RockMountain_1
-    21300004: RockMountain_2
+    21300000: backgroundObject1_0
+    21300002: backgroundObject1_1
+    21300004: backgroundObject1_2
+    21300006: backgroundObject1_3
+    21300008: backgroundObject1_4
+    21300010: backgroundObject1_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -56,39 +59,78 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RockMountain_0
+      name: backgroundObject1_0
       rect:
         serializedVersion: 2
-        x: 418
-        y: 1812
-        width: 479
-        height: 307
+        x: 112
+        y: 405
+        width: 195
+        height: 251
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RockMountain_1
+      name: backgroundObject1_1
       rect:
         serializedVersion: 2
-        x: 295
-        y: 985
-        width: 723
-        height: 477
+        x: 531
+        y: 423
+        width: 158
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: RockMountain_2
+      name: backgroundObject1_2
       rect:
         serializedVersion: 2
-        x: 195
-        y: 148
-        width: 780
-        height: 473
+        x: 871
+        y: 463
+        width: 185
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: backgroundObject1_3
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 52
+        width: 134
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: backgroundObject1_4
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 66
+        width: 97
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: backgroundObject1_5
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 50
+        width: 134
+        height: 239
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
