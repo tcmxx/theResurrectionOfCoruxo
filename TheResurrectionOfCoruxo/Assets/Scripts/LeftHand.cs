@@ -7,6 +7,8 @@ public class LeftHand : MonoBehaviour {
 	public SpriteRenderer sprite;
 	public Sprite sprite0;
 	public Sprite sprite1;
+	public AudioClip left;
+	AudioSource leftH;
 	public Vector3 defaultPosition;
 
 
@@ -40,7 +42,7 @@ public class LeftHand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		handState = LeftHandState.None;
-
+		leftH = GetComponent<AudioSource> ();
 	}
 
 	// Update is called once per frame
@@ -66,7 +68,7 @@ public class LeftHand : MonoBehaviour {
 
 
 		StartCoroutine (UseAnimation(torch, posX, posY, obj));
-
+		leftH.PlayOneShot (left, 0.3f);
 
 		Debug.Log ("Use " + torch.gameObject.name + " at " + posX + ", " + posY);
 	}

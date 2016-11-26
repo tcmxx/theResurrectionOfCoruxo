@@ -6,6 +6,8 @@ public class BurningBox : Flamable {
 
 	public float maxBurningTime;
 	public Sprite sprite0;
+	AudioSource burn;
+	public AudioClip burning1;
 	public Sprite sprite1;
 	public Sprite sprite2;
 	public SpriteRenderer sprite;
@@ -24,7 +26,7 @@ public class BurningBox : Flamable {
 	}
 	// Use this for initialization
 	void Start () {
-	
+		burn = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -70,6 +72,7 @@ public class BurningBox : Flamable {
 	public override void SetOnFire(){
 		if (burned == false) {
 			burning = true;
+			burn.PlayOneShot (burning1, 0.3f);
 		}
 	}
 

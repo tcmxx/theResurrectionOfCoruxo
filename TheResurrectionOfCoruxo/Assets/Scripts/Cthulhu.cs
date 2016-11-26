@@ -12,6 +12,9 @@ public class Cthulhu : MonoBehaviour {
 
 	public GameObject poopPref;
 
+	AudioSource ending;
+	public AudioClip end;
+
 
 	public GameObject[] legs;
 
@@ -36,7 +39,7 @@ public class Cthulhu : MonoBehaviour {
 	void Start () {
 		currentLegs = 0;
 		CameraMove.cam.changeIndex (1);
-	
+		ending = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -59,6 +62,7 @@ public class Cthulhu : MonoBehaviour {
 
 		if (currentLegs >= 8) {
 			CutSceneController.cutSceneController.PlayCutScene ();
+			ending.PlayOneShot (end, 0.6f);
 		}
 	}
 

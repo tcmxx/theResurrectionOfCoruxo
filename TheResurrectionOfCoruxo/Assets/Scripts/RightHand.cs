@@ -13,6 +13,9 @@ public class RightHand : MonoBehaviour {
 
 	public float movingTime;
 	public float movingRate;
+	AudioSource pick;
+	public AudioClip pickup;
+
 
 
 
@@ -39,7 +42,7 @@ public class RightHand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		handState = RightHandState.None;
-	
+		pick = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -83,7 +86,7 @@ public class RightHand : MonoBehaviour {
 		if (usable == null)
 			return;
 		StartCoroutine (PickAnimation(usable));
-
+		pick.PlayOneShot (pickup, 0.3f);
 		currentUsable = usable;
 
 	}
