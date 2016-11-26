@@ -6,6 +6,8 @@ public class GhostCaptainLeg : MonoBehaviour {
 
 	public GameObject legToGivePref;
 
+	bool taken = false;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -20,7 +22,10 @@ public class GhostCaptainLeg : MonoBehaviour {
 
 
 	public void TakeLeg(){
-		GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+		if (!taken) {
+			GameObject.Instantiate (legToGivePref, transform.position, Quaternion.identity);
+			taken = true;
+		}
 		PlayerControl.playerControl.DisableControls ();
 	}
 
