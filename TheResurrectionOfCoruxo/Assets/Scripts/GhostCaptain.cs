@@ -11,13 +11,13 @@ public class GhostCaptain : MonoBehaviour {
 
 	Vector3 moveDir;
 
-
+	Vector3 initPos;
 
 
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("ChangeDirection", 1.0f,changingRate);
-
+		initPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -29,10 +29,10 @@ public class GhostCaptain : MonoBehaviour {
 
 	void Move(){
 		transform.Translate (moveDir*moveSpeed*Time.deltaTime);
-		if (transform.position.x < minX || transform.position.x > maxX) {
+		if (transform.position.x < minX + initPos.x || transform.position.x > maxX + initPos.x) {
 			moveDir.x = -moveDir.x;
 			transform.Translate (moveDir*moveSpeed*Time.deltaTime);
-		}else if(transform.position.y < minY || transform.position.y > maxY) {
+		}else if(transform.position.y < minY +initPos.y || transform.position.y > maxY + initPos.y) {
 			moveDir.y = -moveDir.y;
 			transform.Translate (moveDir*moveSpeed*Time.deltaTime);
 		}
