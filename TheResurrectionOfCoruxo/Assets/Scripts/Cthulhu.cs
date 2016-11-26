@@ -30,6 +30,7 @@ public class Cthulhu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;
+		CameraMove.cam.Unlock (5);
 	
 	}
 	
@@ -41,6 +42,7 @@ public class Cthulhu : MonoBehaviour {
 
 
 	public void ObtainLeg(){
+		CameraMove.cam.Unlock (currentLegs+1);
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
 	}

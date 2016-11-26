@@ -29,7 +29,7 @@ public class CameraMove : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		changeIndex (6);
+		//changeIndex (8);
 		Unlock (currentOffsetIndex);
 	}
 
@@ -180,7 +180,13 @@ public class CameraMove : MonoBehaviour {
 
 
 		if (offset == 7) {
-			offXLeft = 173;
+			offXLeft = -173;
+
+			if (transform.localPosition.x > offRight6) {
+				if (x > 0) {
+					x = 0;
+				}
+			}
 			
 			if (transform.localPosition.x < offXLeft) {
 				if (x < 0) { //Cannot go to the left more than offXLeft (beginning of game)
@@ -189,13 +195,13 @@ public class CameraMove : MonoBehaviour {
 			}
 		}
 
-		/*if (offset == 8) {
-			if (transform.localPosition.x > offRight8) {
+		if (offset == 8) {
+			if (transform.localPosition.x > offRight7) {
 				if (x > 0) {
 					x = 0;
 				}
 			}
-		}*/
+		}
 		transform.Translate (Vector3.right * x + Vector3.up * y);
 	}
 
