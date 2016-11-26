@@ -82,6 +82,7 @@ public class LeftHand : MonoBehaviour {
 		pos.x = posX;
 		pos.y = posY;
 
+		PlayerControl.playerControl.DisableControls ();
 
 		desPosition = transform.parent.InverseTransformPoint (pos);
 
@@ -95,7 +96,7 @@ public class LeftHand : MonoBehaviour {
 		yield return new WaitForSeconds (lightUpTime/2);
 		usable.Use (posX, posY, obj);
 
-
+		PlayerControl.playerControl.EnableControls ();
 		handState = LeftHandState.UsingBack;
 
 		yield return new WaitForSeconds (lightUpTime/2);
@@ -106,6 +107,7 @@ public class LeftHand : MonoBehaviour {
 
 
 		yield return new WaitForSeconds (movingTime - lightUpTime/2);
+
 
 		handState = LeftHandState.None;
 

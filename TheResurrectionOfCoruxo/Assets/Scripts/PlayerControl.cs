@@ -45,12 +45,12 @@ public class PlayerControl : MonoBehaviour {
 
 	public void DisableControls(){
 		controlsEnable = false;
-		//CameraMove.cam.EnableCamera ();
+		CameraMove.cam.DisableCamera ();
 	}
 
 	public void EnableControls(){
 		controlsEnable = true;
-		//CameraMove.cam.DisableCamera ();
+		CameraMove.cam.EnableCamera ();
 	}
 
 

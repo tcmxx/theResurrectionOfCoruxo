@@ -96,6 +96,9 @@ public class RightHand : MonoBehaviour {
 		pos.y = posY;
 
 
+		PlayerControl.playerControl.DisableControls ();
+
+
 		desPosition = transform.parent.InverseTransformPoint (pos);
 
 		desPosition.z = defaultPosition.z;
@@ -108,7 +111,7 @@ public class RightHand : MonoBehaviour {
 
 
 		usable.transform.SetParent (null);
-
+		PlayerControl.playerControl.EnableControls ();
 
 
 
@@ -116,12 +119,15 @@ public class RightHand : MonoBehaviour {
 
 		yield return new WaitForSeconds (movingTime);
 
+
 		handState = RightHandState.None;
 
 	}
 
 
 	IEnumerator PickAnimation(UsableObject usable){
+
+		PlayerControl.playerControl.DisableControls ();
 
 		desPosition = transform.parent.InverseTransformPoint (usable.transform.position);
 
@@ -132,6 +138,7 @@ public class RightHand : MonoBehaviour {
 		yield return new WaitForSeconds (movingTime);
 
 		usable.Obtain ();
+		PlayerControl.playerControl.EnableControls ();
 		usable.transform.SetParent (this.transform);
 		usable.transform.localPosition = Vector3.zero;
 

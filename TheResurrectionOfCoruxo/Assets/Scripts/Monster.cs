@@ -25,12 +25,14 @@ public class Monster : MonoBehaviour {
 
 
 	public void HitByStone(){
+		anim.SetTrigger ("hit");
 	}
 
 	public void HitByAsh(){
 		if (empty == false) {
 			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
 			empty = true;
+			anim.SetTrigger ("legtaken");
 		}
 	}
 

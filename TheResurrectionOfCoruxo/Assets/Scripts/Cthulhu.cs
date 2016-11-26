@@ -83,6 +83,7 @@ public class Cthulhu : MonoBehaviour {
 		DialogueControl.dialogueControl.StartDialogue (0);
 		spriteRenderer.sprite = cthulhuNormalSprite;
 		CameraMove.cam.changeIndex (2);
+		wakeUp = true;
 
 	}
 
