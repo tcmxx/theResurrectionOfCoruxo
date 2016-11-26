@@ -5,6 +5,7 @@ public class FlamableLight : Flamable {
 
 
 	public GameObject darkness;
+	public GameObject leg;
 
 	Animator anim;
 	void Awake(){
@@ -25,6 +26,7 @@ public class FlamableLight : Flamable {
 	public override void SetOnFire(){
 		if (darkness != null) {
 			darkness.SetActive (false);
+			leg.SetActive (true);
 		}
 		GetComponent <SpriteRenderer>().color = Color.red;
 	}
