@@ -42,7 +42,9 @@ public class CameraMove : MonoBehaviour {
 		cameraEnabled = false;
 	}
 
-
+	public void EnableCamera(){
+		cameraEnabled = true;
+	}
 
 	public void Unlock(int offset){
 

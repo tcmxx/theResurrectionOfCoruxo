@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CutSceneController : MonoBehaviour {
 
@@ -7,43 +9,57 @@ public class CutSceneController : MonoBehaviour {
 	public static CutSceneController cutSceneController;
 
 
+	public GameObject imageUI;
+
+
+	public Sprite[] cutScene0Images;
+
+
+
+	int currentInd = 0;
+
+	bool playing = false;
+
 	void Awake(){
 		cutSceneController = this;
 	}
 
 	// Use this for initialization
 	void Start () {
-	
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+		if (playing) {
+			if (Input.GetMouseButtonDown (0)) {
+				currentInd++;
+				if (currentInd >= cutScene0Images.Length) {
+					playing = false;
+					imageUI.SetActive (false);
+					SceneManager.LoadScene ("MenuScene");
+				} else {
+					imageUI.GetComponent <SpriteRenderer> ().sprite = cutScene0Images [currentInd];
+				}
 
-
-
-
-	void PlayCutScene(int index){
-		if (index == 0) {
-			StartCoroutine(CutScene0 ());
-		} else if (index == 1) {
-			StartCoroutine(CutScene1 ());
-		} else if (index == 2) {
-			StartCoroutine(CutScene2 ());
+			}
+		} else {
+			//test
+			if (Input.GetMouseButtonDown (0)) {
+				PlayCutScene ();
+			}
 		}
 	}
 
 
-	IEnumerator CutScene0(){
-		yield return null;
+
+
+	void PlayCutScene(){
+		CameraMove.cam.DisableCamera ();
+		playing = true;
+		imageUI.SetActive (true);
+		imageUI.GetComponent <SpriteRenderer>().sprite = cutScene0Images[0];
 	}
 
-	IEnumerator CutScene1(){
-		yield return null;
-	}
 
-	IEnumerator CutScene2(){
-		yield return null;
-	}
 }
