@@ -10,6 +10,13 @@ public class Cthulhu : MonoBehaviour {
 
 	public int requiredFishedToGrow;
 
+	public GameObject poopPref;
+
+
+	public GameObject[] legs;
+
+	public BurningBox burningBox;
+
 	int currentFedFished = 0;
 	bool grownLeg = false;
 
@@ -31,9 +38,19 @@ public class Cthulhu : MonoBehaviour {
 
 
 	public void ObtainLeg(){
+		legs [currentLegs].SetActive (true);
 		currentLegs++;
 	}
 
+	public void LoseLeg(){
+		currentLegs--;
+	}
+
+
+	public void ObtainWrongLeg(){
+		burningBox.Reset ();
+		DialogueControl.dialogueControl.StartDialogue (2);
+	}
 
 	public void OnClicked(){
 		if (wakeUp == false) {
@@ -56,11 +73,13 @@ public class Cthulhu : MonoBehaviour {
 				ObtainLeg ();
 				Poop ();
 				grownLeg = true;
+				currentFedFished = 0;
 			}
 		}
 	}
 
 	void Poop(){
+		GameObject.Instantiate (poopPref,transform.position + Vector3.right * 2,Quaternion.identity);
 	}
 
 

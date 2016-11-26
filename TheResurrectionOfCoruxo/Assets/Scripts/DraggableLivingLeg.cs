@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Boat : MonoBehaviour {
+public class DraggableLivingLeg : MonoBehaviour {
+
+
+	public bool CanBeDragDown = false;
 
 	public int dragTimesRequired;
 	public float dragDistanceEachTime;
 	public Vector3 dragDirection;
 
-	public GameObject ghostCaptainPref;
+	public GameObject legToGivePref;
+
+	public Cthulhu cthulhu;
+
 
 	Vector3 initialPosition;
-	Vector3 savedinitialPosition;
 
 
-	bool ghostState = false;
 
 	bool dragging = false;
 	int dragTimes = 0;
@@ -21,25 +25,20 @@ public class Boat : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
-		savedinitialPosition = initialPosition;
 	}
 
 	// Update is called once per frame
 	void Update () {
-		initialPosition = savedinitialPosition + Vector3.up * Mathf.Sin (Time.time*3);
-		if (!dragging) {
-			transform.position = initialPosition;
-		}
+
 	}
 
 
 	public void OnDragStart(){
-		if(!ghostState)
-			dragging = true;
+		dragging = true;
 	}
 
 	public void OnDragging(){
-		if (dragging && !ghostState) {
+		if (dragging) {
 			Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			mouseWorldPos.z = initialPosition.z;
 
@@ -53,12 +52,11 @@ public class Boat : MonoBehaviour {
 
 			if ((projectedMousePos - initialPosition).magnitude > dragDistanceEachTime) {
 				dragTimes++;
-				if (dragTimes >= dragTimesRequired) {
-					TurnIntoGhost ();
-
-				} 
-				GoBack ();
-
+				if (CanBeDragDown && dragTimes >= dragTimesRequired) {
+					Spawn ();
+				} else {
+					GoBack ();
+				}
 			}
 		}
 	}
@@ -69,16 +67,28 @@ public class Boat : MonoBehaviour {
 
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){
-		transform.position = projectedMousePos * 0.6f + (initialPosition  + dragDirection.normalized*dragTimes*0.2f) * 0.4f;
+		if (CanBeDragDown) {
+			transform.position = (projectedMousePos + initialPosition + dragDirection.normalized * dragTimes * 0.1f) * 0.5f;
+		} else {
+			transform.position = (projectedMousePos + initialPosition) * 0.5f;
+		}
 	}
 
-	void TurnIntoGhost(){
-		GameObject.Instantiate (ghostCaptainPref, transform.position,Quaternion.identity);
-		ghostState = true;
+	void Spawn(){
+		GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+		transform.position = initialPosition;
+		gameObject.SetActive (false);
+		cthulhu.LoseLeg ();
 	}
 
 	void GoBack(){
 		dragging = false;
-		transform.position = initialPosition + dragDirection.normalized*dragTimes*0.2f;
+		if (CanBeDragDown) {
+			transform.position = initialPosition + dragDirection.normalized * dragTimes * 0.1f;
+		}
+		else {
+			transform.position = initialPosition;
+		}
 	}
+
 }

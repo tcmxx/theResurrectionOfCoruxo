@@ -3,6 +3,11 @@ using System.Collections;
 
 public class LegToGive : UsableObject {
 
+	public bool triggerBeliever = false;
+	public bool burnt = false;
+
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -26,11 +31,26 @@ public class LegToGive : UsableObject {
 		if (obj != null) {
 			Cthulhu creature = obj.GetComponent <Cthulhu> ();
 			if (creature != null) {
-				
-				creature.ObtainLeg ();
+				if (burnt) {
+					creature.ObtainWrongLeg ();
+				} else {
+					creature.ObtainLeg ();
+				}
+
 				Destroy (gameObject, 0.1f);
 				return true;
 			}
+
+			Believer believer = obj.GetComponent <Believer> ();
+			if (believer != null) {
+				if (triggerBeliever) {
+					believer.GetRightLeg ();
+				} else {
+					believer.GetWrongLeg ();
+				}
+				return true;
+			}
+
 		}
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;

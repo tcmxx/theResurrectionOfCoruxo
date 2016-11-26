@@ -29,6 +29,9 @@ public class UsableObject : MonoBehaviour {
 		//set the physics
 		GetComponent <Collider2D>().enabled = true;
 		GetComponent <Rigidbody2D>().isKinematic = false;
+
+		transform.localScale /= 1.2f;
+
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;
 	}
@@ -37,6 +40,7 @@ public class UsableObject : MonoBehaviour {
 		//set the physical state
 		GetComponent <Collider2D>().enabled = false;
 		GetComponent <Rigidbody2D>().isKinematic = true;
+		transform.localScale *= 1.2f;
 
 	}
 

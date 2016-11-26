@@ -59,4 +59,12 @@ public class BurningBox : Flamable {
 			burning = true;
 		}
 	}
+
+
+	public void Reset(){
+		burned = false;
+		burning = false;
+		currentBurningTime = 0;
+		GetComponent <SpriteRenderer> ().color = Color.white;
+	}
 }
