@@ -17,6 +17,11 @@ public class Cthulhu : MonoBehaviour {
 
 	public BurningBox burningBox;
 
+	public Sprite cthulhuNormalSprite;
+
+	public SpriteRenderer spriteRenderer;
+
+
 	int currentFedFished = 0;
 	bool grownLeg = false;
 
@@ -30,7 +35,7 @@ public class Cthulhu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;
-		CameraMove.cam.Unlock (5);
+		CameraMove.cam.changeIndex (1);
 	
 	}
 	
@@ -42,7 +47,13 @@ public class Cthulhu : MonoBehaviour {
 
 
 	public void ObtainLeg(){
-		CameraMove.cam.Unlock (currentLegs+1);
+
+
+		CameraMove.cam.changeIndex ((currentLegs + 3) >= 8? 8:(currentLegs + 3));
+
+
+
+
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
 
@@ -70,7 +81,8 @@ public class Cthulhu : MonoBehaviour {
 
 	public void WakeUp(){
 		DialogueControl.dialogueControl.StartDialogue (0);
-
+		spriteRenderer.sprite = cthulhuNormalSprite;
+		CameraMove.cam.changeIndex (2);
 
 	}
 

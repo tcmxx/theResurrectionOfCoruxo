@@ -75,7 +75,7 @@ class Dialogues{
 
 	public static readonly string[] dialogues = new string[10] {
 		"I am Awake. ",
-		"Please found me 8 legs",
+		"Please find me 8 legs",
 		"You burnt my leg! I will reverse the time. Don't burn it again!",
 		"I want to resurrect the Cthulhu with this tentacle. But I don't believe you can help me.",
 		"This is not from a living Cthulhu. Don't fool me. ",

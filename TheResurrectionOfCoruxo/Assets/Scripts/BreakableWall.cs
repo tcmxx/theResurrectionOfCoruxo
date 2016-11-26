@@ -11,7 +11,7 @@ public class BreakableWall : MonoBehaviour {
 
 	bool broken = false;
 
-
+	public SpriteRenderer spriteRenderer;
 	Animator anim;
 	void Awake(){
 		anim = GetComponent <Animator> ();
@@ -36,7 +36,7 @@ public class BreakableWall : MonoBehaviour {
 
 
 	void Break(){
-		GetComponent <SpriteRenderer>().sprite = null;
+		spriteRenderer.sprite = null;
 		GetComponent <Collider2D>().enabled = false;
 		broken = true;
 	}

@@ -25,5 +25,6 @@ public class SeaGrass : MonoBehaviour {
 	public void Grow(){
 
 		transform.localScale += Vector3.up * 10;
+		CameraMove.cam.ChangeY7 ();
 	}
 }

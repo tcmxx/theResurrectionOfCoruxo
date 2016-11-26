@@ -48,7 +48,7 @@ public class Fish : UsableObject {
 	/// <param name="obj">Object.</param>
 	public override bool Use(float posX, float posY, GameObject obj = null){
 		base.Use (posX, posY, obj);
-		swimming = true;
+
 		initialPosition = transform.position;
 		GetComponent <Rigidbody2D>().isKinematic = true;
 		if (obj != null) {
@@ -59,6 +59,8 @@ public class Fish : UsableObject {
 				cthulhu.Feed ();
 				Destroy (gameObject, 0.2f);
 				return true;
+			} else {
+				swimming = true;
 			}
 		}
 		//PlayerControl.playerControl.Unlcoked (1);
