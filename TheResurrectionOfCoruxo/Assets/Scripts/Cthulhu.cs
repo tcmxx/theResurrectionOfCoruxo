@@ -45,6 +45,10 @@ public class Cthulhu : MonoBehaviour {
 		CameraMove.cam.Unlock (currentLegs+1);
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
+
+		if (currentLegs >= 8) {
+			CutSceneController.cutSceneController.PlayCutScene ();
+		}
 	}
 
 	public void LoseLeg(){

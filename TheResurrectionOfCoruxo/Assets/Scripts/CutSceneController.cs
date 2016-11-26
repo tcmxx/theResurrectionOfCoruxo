@@ -44,17 +44,13 @@ public class CutSceneController : MonoBehaviour {
 
 			}
 		} else {
-			//test
-			if (Input.GetMouseButtonDown (0)) {
-				PlayCutScene ();
-			}
 		}
 	}
 
 
 
 
-	void PlayCutScene(){
+	public void PlayCutScene(){
 		CameraMove.cam.DisableCamera ();
 		playing = true;
 		imageUI.SetActive (true);
