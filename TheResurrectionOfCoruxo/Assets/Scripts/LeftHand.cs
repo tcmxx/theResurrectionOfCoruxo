@@ -13,8 +13,10 @@ public class LeftHand : MonoBehaviour {
 
 	public float movingTime;
 	public float movingRate;
+	public float lightUpTime;
 
 
+	public GameObject mask;
 
 	public enum LeftHandState{
 		None,
@@ -85,13 +87,21 @@ public class LeftHand : MonoBehaviour {
 
 		handState = LeftHandState.UsingTo;
 
-		yield return new WaitForSeconds (movingTime);
-
+		yield return new WaitForSeconds (movingTime - lightUpTime/2);
+		mask.SetActive (true);
+		yield return new WaitForSeconds (lightUpTime/2);
 		usable.Use (posX, posY, obj);
+
 
 		handState = LeftHandState.UsingBack;
 
-		yield return new WaitForSeconds (movingTime);
+		yield return new WaitForSeconds (lightUpTime/2);
+
+		mask.SetActive (false);
+
+
+
+		yield return new WaitForSeconds (movingTime - lightUpTime/2);
 
 		handState = LeftHandState.None;
 
