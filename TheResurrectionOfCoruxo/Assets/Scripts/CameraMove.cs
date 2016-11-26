@@ -3,19 +3,18 @@ using System.Collections;
 
 public class CameraMove : MonoBehaviour {
 
-	public int offY = 23;
+	public int offY = 32;
 	public int offY2 = 2;
-	public int offYPuzzle6 = -3;
+	public int offYPuzzle6 = -42;
 	public int offCannotMoveHorizontally = 3;
-	public int offRight1 = -85;
-	public int offRight2 = -80;
-	public int offRight3 = -75;
-	public int offRight4 = -70;
-	public int offRight5 = -65;
-	public int offRight6 = -60;
-	public int offRight7 = -55;
-	public int offRight8 = -50;
-	public int offXLeft = -98;
+	public int offRight1 = -130;
+	public int offRight2 = -90;
+	public int offRight3 = -43;
+	public int offRight4 = 6;
+	public int offRight5 = 53;
+	public int offRight6 = 116;
+	public int offRight7 = 156;
+	public int offXLeft = -132;
 	public static CameraMove cam;
 	float x;
 	float y;
@@ -181,20 +180,22 @@ public class CameraMove : MonoBehaviour {
 
 
 		if (offset == 7) {
-			if (transform.localPosition.x > offRight7) {
-				if (x > 0) {
+			offXLeft = 173;
+			
+			if (transform.localPosition.x < offXLeft) {
+				if (x < 0) { //Cannot go to the left more than offXLeft (beginning of game)
 					x = 0;
 				}
 			}
 		}
 
-		if (offset == 8) {
+		/*if (offset == 8) {
 			if (transform.localPosition.x > offRight8) {
 				if (x > 0) {
 					x = 0;
 				}
 			}
-		}
+		}*/
 		transform.Translate (Vector3.right * x + Vector3.up * y);
 	}
 
