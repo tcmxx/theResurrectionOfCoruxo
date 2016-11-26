@@ -29,9 +29,13 @@ public class LeftHand : MonoBehaviour {
 
 	Vector3 desPosition;
 
-
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
+		handState = LeftHandState.None;
 
 	}
 

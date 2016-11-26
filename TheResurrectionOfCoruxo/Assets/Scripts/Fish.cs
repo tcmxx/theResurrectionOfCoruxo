@@ -3,6 +3,15 @@ using System.Collections;
 
 public class Fish : UsableObject {
 
+
+
+
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
+
+
 	// Use this for initialization
 	void Start () {
 	

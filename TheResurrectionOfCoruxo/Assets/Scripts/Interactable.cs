@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class Interactable : MonoBehaviour {
 
 
-	public UnityEvent OnClickRight;
+	//public UnityEvent OnClickRight;
 	public UnityEvent OnClickLeft;
 	public UnityEvent OnClickUp;
 	public UnityEvent OnDrag;
@@ -17,7 +17,7 @@ public class Interactable : MonoBehaviour {
 				OnClickLeft.Invoke ();
 
 			} else {
-				OnClickRight.Invoke ();
+				//OnClickRight.Invoke ();
 			}
 		}
 

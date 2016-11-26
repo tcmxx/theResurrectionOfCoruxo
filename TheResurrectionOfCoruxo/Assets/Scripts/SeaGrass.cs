@@ -3,6 +3,14 @@ using System.Collections;
 
 public class SeaGrass : MonoBehaviour {
 
+
+
+
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
+
 	// Use this for initialization
 	void Start () {
 	

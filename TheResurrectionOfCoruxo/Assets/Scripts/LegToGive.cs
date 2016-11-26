@@ -7,6 +7,10 @@ public class LegToGive : UsableObject {
 	public bool burnt = false;
 
 
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 
 	// Use this for initialization
 	void Start () {

@@ -11,6 +11,7 @@ public class PlayerControl : MonoBehaviour {
 
 	public RightHand rightHand;
 	public LeftHand leftHand;
+	public GameObject leftHandObj;
 
 	public LayerMask usableLayerMask;
 	public LayerMask notAllowPutLayerMask;
@@ -51,6 +52,12 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 
+	public void GetTorch(){
+		leftHandObj.SetActive (true);
+	}
+
+
+
 	void InputControl(){
 
 		if (Input.GetMouseButtonDown (0)) {
@@ -71,7 +78,7 @@ public class PlayerControl : MonoBehaviour {
 					UsableObject usable = hit.collider.gameObject.GetComponent <UsableObject> ();
 					rightHand.PickAt (usable);
 				}
-			} else if (rightHand.state == RightHand.RightHandState.Holding && notallowPutHit.collider == null) {
+			} else if (rightHand.state == RightHand.RightHandState.Holding && (notallowPutHit.collider == null || hit.collider != null)) {
 				if (hit.collider) {
 					rightHand.UseCurrentUsable (mouseWorldPos.x, mouseWorldPos.y, hit.collider.gameObject);
 				} else {
@@ -80,7 +87,7 @@ public class PlayerControl : MonoBehaviour {
 			}
 				
 
-		} else if (Input.GetMouseButtonDown (1)) {
+		} else if (Input.GetMouseButtonDown (1 ) && leftHandObj.activeSelf) {
 
 			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, usableLayerMask);

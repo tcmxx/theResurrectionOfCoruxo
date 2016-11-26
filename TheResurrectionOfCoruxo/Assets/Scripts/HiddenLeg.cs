@@ -14,11 +14,18 @@ public class HiddenLeg : MonoBehaviour {
 
 	Vector3 initialPosition;
 
-
+	float stepSize = 0.3f;
 
 	bool dragging = false;
 	int dragTimes = 0;
 
+	Vector3 mouseInitPos;
+
+
+	Animator anim;
+	void Awake(){
+		anim = GetComponent <Animator> ();
+	}
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
@@ -32,6 +39,8 @@ public class HiddenLeg : MonoBehaviour {
 
 	public void OnDragStart(){
 		dragging = true;
+		mouseInitPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		mouseInitPos.z = initialPosition.z;
 	}
 
 	public void OnDragging(){
@@ -39,15 +48,15 @@ public class HiddenLeg : MonoBehaviour {
 			Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			mouseWorldPos.z = initialPosition.z;
 
-			float length = Vector3.Dot (dragDirection.normalized, mouseWorldPos - initialPosition);
+			float length = Vector3.Dot (dragDirection.normalized, mouseWorldPos - mouseInitPos);
 			if (length <= 0) {
 				length = 0;
 			}
-			Vector3 projectedMousePos = length * dragDirection.normalized + initialPosition;
+			Vector3 projectedMousePos = length * dragDirection.normalized + initialPosition  + dragDirection.normalized*dragTimes*stepSize;
 
 			DraggingPositionAdjust (projectedMousePos);
 
-			if ((projectedMousePos - initialPosition).magnitude > dragDistanceEachTime) {
+			if ((projectedMousePos - mouseInitPos).magnitude > dragDistanceEachTime) {
 				dragTimes++;
 				if (dragTimes >= dragTimesRequired) {
 					Spawn ();
@@ -64,7 +73,7 @@ public class HiddenLeg : MonoBehaviour {
 
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){
-		transform.position = (projectedMousePos + initialPosition  + dragDirection.normalized*dragTimes*0.5f) * 0.5f;
+		transform.position = (projectedMousePos + initialPosition  + dragDirection.normalized*dragTimes*stepSize) * 0.5f;
 	}
 
 	void Spawn(){
@@ -74,7 +83,7 @@ public class HiddenLeg : MonoBehaviour {
 
 	void GoBack(){
 		dragging = false;
-		transform.position = initialPosition + dragDirection.normalized*dragTimes*0.5f;
+		transform.position = initialPosition + dragDirection.normalized*dragTimes*stepSize;
 	}
 
 }
