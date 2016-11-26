@@ -26,6 +26,7 @@ public class Monster : MonoBehaviour {
 
 	public void HitByStone(){
 		anim.SetTrigger ("hit");
+		DialogueControl.dialogueControl.StartDialogue (5);
 	}
 
 	public void HitByAsh(){

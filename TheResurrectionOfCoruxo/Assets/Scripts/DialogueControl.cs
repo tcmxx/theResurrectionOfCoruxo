@@ -79,7 +79,7 @@ class Dialogues{
 		"You burned my leg! I will reverse the time. Don't burn it again!",
 		"I want to resurrect the Cthulhu with this tentacle. But I don't believe you can help me.",
 		"This is not from a living Cthulhu. Don't fool me. ",
-		"test 6",
+		"Did you really think a simple rock would hurt me?",
 		"test 7",
 		"test 8",
 		"test 9",
