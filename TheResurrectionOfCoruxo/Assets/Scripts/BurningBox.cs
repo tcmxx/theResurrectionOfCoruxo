@@ -72,7 +72,7 @@ public class BurningBox : Flamable {
 	public override void SetOnFire(){
 		if (burned == false) {
 			burning = true;
-			burn.PlayOneShot (burning1, 0.3f);
+			burn.PlayOneShot (burning1, 0.8f);
 		}
 	}
 

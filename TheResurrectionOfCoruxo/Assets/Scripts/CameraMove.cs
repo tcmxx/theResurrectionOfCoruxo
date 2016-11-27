@@ -210,13 +210,12 @@ public class CameraMove : MonoBehaviour {
 				//    x = 0;
 			}
 
-
-
-		if (transform.localPosition.y < offYPuzzle6) {
-			if (y < 0)
-				y = 0; //Cannot go down
-
-		}
+			if (transform.localPosition.x >= offRight6 - 1 && transform.localPosition.x <= offRight8) {
+				if (transform.localPosition.y < offYPuzzle6) {
+					if (y < 0)
+						y = 0; //Cannot go down
+				}
+			}
 		if (transform.localPosition.x > offRight6) {
 			if (x > 0) {
 				x = 0;
@@ -236,6 +235,19 @@ public class CameraMove : MonoBehaviour {
 
 
 	if (offset == 7) {
+
+			if (transform.localPosition.y < offY - 0.5f) {
+				if (x < 0)
+					x = 0;
+			}
+
+		if (transform.localPosition.x >= offRight6 && transform.localPosition.x <= offRight8) {
+			if (transform.localPosition.y < offYPuzzle6) {
+				if (y < 0)
+					y = 0; //Cannot go down
+			}
+		}
+
 		offXLeft = -173;
 		if ((transform.localPosition.x > offXLeft && transform.localPosition.x < -148) || transform.localPosition.x < offXLeft || (transform.localPosition.x > -148 && transform.localPosition.x < offRight6)) {
 			if (transform.localPosition.y < offY) {
@@ -260,11 +272,17 @@ public class CameraMove : MonoBehaviour {
 		}
 
 
-		if (transform.localPosition.x > offRight6) {
+		if (transform.localPosition.x >= offRight6) {
 			if (x > 0) {
 				x = 0;
 			}
+
 		}
+			if (transform.localPosition.y > offY) {
+				if (y > 0) {
+					y = 0;
+				}
+			}
 
 		if (transform.localPosition.x < offXLeft) {
 			if (x < 0) { //Cannot go to the left more than offXLeft (beginning of game)
@@ -276,8 +294,19 @@ public class CameraMove : MonoBehaviour {
 
 
 	if (offset == 8) {
+
+		if (transform.localPosition.y < offY) {
+			if (x < 0)
+				x = 0;
+		}
 		offXLeft = -173;
 
+		if (transform.localPosition.x >= offRight6 && transform.localPosition.x <= offRight8) {
+			if (transform.localPosition.y < offYPuzzle6) {
+				if (y < 0)
+					y = 0; //Cannot go down
+			}
+		}
 
 		if (transform.localPosition.x > -148 && transform.localPosition.x < offRight8) {
 			if (transform.localPosition.y > offY) {
@@ -285,7 +314,7 @@ public class CameraMove : MonoBehaviour {
 					y = 0; //Cannot go up more than offY (starts from offset = 5)
 			}
 		}
-		if (transform.localPosition.x < offRight6) {
+		if (transform.localPosition.x < offRight6 || transform.localPosition.x >= offRight8) {
 			if(transform.localPosition.y < offY2){
 				if (y < 0)
 					y = 0; //Cannot go down

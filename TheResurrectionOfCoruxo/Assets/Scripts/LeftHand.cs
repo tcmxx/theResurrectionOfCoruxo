@@ -68,7 +68,7 @@ public class LeftHand : MonoBehaviour {
 
 
 		StartCoroutine (UseAnimation(torch, posX, posY, obj));
-		leftH.PlayOneShot (left, 0.3f);
+		leftH.PlayOneShot (left, 0.6f);
 
 		Debug.Log ("Use " + torch.gameObject.name + " at " + posX + ", " + posY);
 	}

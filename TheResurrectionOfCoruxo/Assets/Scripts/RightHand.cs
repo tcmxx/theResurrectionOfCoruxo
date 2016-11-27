@@ -86,7 +86,7 @@ public class RightHand : MonoBehaviour {
 		if (usable == null)
 			return;
 		StartCoroutine (PickAnimation(usable));
-		pick.PlayOneShot (pickup, 0.3f);
+		pick.PlayOneShot (pickup, 0.6f);
 		currentUsable = usable;
 
 	}
