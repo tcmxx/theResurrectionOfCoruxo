@@ -314,7 +314,7 @@ public class CameraMove : MonoBehaviour {
 					y = 0; //Cannot go up more than offY (starts from offset = 5)
 			}
 		}
-		if (transform.localPosition.x < offRight6 || transform.localPosition.x >= offRight8) {
+		if (transform.localPosition.x < offRight6 || (transform.localPosition.x >= 140 && transform.localPosition.x <= offRight8) || transform.localPosition.x >= offRight8) {
 			if(transform.localPosition.y < offY2){
 				if (y < 0)
 					y = 0; //Cannot go down
