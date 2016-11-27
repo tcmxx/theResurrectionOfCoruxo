@@ -12,6 +12,9 @@ public class Cthulhu : MonoBehaviour {
 
 	public GameObject poopPref;
 
+	AudioSource unl;
+	public AudioClip unlock;
+
 	AudioSource ending;
 	public AudioClip end;
 
@@ -40,6 +43,7 @@ public class Cthulhu : MonoBehaviour {
 		currentLegs = 0;
 		CameraMove.cam.changeIndex (1);
 		ending = GetComponent<AudioSource> ();
+		unl = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -54,7 +58,7 @@ public class Cthulhu : MonoBehaviour {
 
 		CameraMove.cam.changeIndex ((currentLegs + 3) >= 8? 8:(currentLegs + 3));
 
-
+		unl.PlayOneShot (unlock, 0.6f);
 
 
 		legs [currentLegs].SetActive (true);
