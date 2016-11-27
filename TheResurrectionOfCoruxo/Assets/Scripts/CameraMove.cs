@@ -295,7 +295,7 @@ public class CameraMove : MonoBehaviour {
 
 	if (offset == 8) {
 
-		if (transform.localPosition.y < offY) {
+		if (transform.localPosition.y < offY - 0.5f) {
 			if (x < 0)
 				x = 0;
 		}

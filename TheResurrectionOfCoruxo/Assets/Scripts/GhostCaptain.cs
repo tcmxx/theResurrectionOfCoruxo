@@ -18,7 +18,7 @@ public class GhostCaptain : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("ChangeDirection", 1.0f,changingRate);
+		InvokeRepeating ("ChangeDirection", 0.5f,changingRate);
 		initPos = transform.position;
 	}
 	

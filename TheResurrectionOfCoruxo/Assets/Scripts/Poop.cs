@@ -20,7 +20,14 @@ public class Poop : UsableObject {
 	/// <param name="posY">Position y.</param>
 	/// <param name="obj">Object.</param>
 	public override bool Use(float posX, float posY, GameObject obj = null){
-		base.Use (posX, posY, obj);
+		//base.Use (posX, posY, obj);
+
+		GetComponent <Collider2D>().enabled = true;
+		GetComponent <Rigidbody2D>().isKinematic = false;
+
+		transform.localScale /= 4f;
+
+
 		GetComponent <Rigidbody2D>().isKinematic = true;
 		if (obj != null) {
 
@@ -34,5 +41,14 @@ public class Poop : UsableObject {
 		}
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;
+	}
+
+
+	public override void Obtain(){
+		//set the physical state
+		GetComponent <Collider2D>().enabled = false;
+		GetComponent <Rigidbody2D>().isKinematic = true;
+		transform.localScale *= 4f;
+
 	}
 }

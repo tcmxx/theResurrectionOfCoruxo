@@ -58,7 +58,7 @@ public class Cthulhu : MonoBehaviour {
 
 		CameraMove.cam.changeIndex ((currentLegs + 3) >= 8? 8:(currentLegs + 3));
 
-		unl.PlayOneShot (unlock, 0.6f);
+		unl.PlayOneShot (unlock, 0.5f);
 
 
 		legs [currentLegs].SetActive (true);
