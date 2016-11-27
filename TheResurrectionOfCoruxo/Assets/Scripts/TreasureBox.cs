@@ -11,6 +11,10 @@ public class TreasureBox : MonoBehaviour {
 
 	public GameObject legToGivePref;
 
+
+	public GameObject ghostPref;
+
+
 	bool opened = false;
 	bool treasureShown = false;
 
@@ -51,6 +55,7 @@ public class TreasureBox : MonoBehaviour {
 		opened = true;
 		if (containTreasure == true) {
 			sprite.sprite = newSprite;
+			GameObject.Instantiate (ghostPref, transform.position + Vector3.up * 3,Quaternion.identity);
 		} else {
 			sprite.sprite = newSprite2;
 		}

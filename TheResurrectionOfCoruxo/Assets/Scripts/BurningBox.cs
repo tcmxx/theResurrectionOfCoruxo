@@ -15,7 +15,8 @@ public class BurningBox : Flamable {
 	public GameObject legToGivePref;
 	public GameObject legBurntPref;
 
-	bool burning = false;
+	[HideInInspector]
+	public bool burning = false;
 	bool burned = false;
 
 	float currentBurningTime = 0;

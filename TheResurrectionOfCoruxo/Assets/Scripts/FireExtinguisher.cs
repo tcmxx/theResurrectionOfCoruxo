@@ -5,6 +5,8 @@ public class FireExtinguisher : UsableObject {
 
 
 
+
+
 	Animator anim;
 	void Awake(){
 		anim = GetComponent <Animator> ();
@@ -31,9 +33,9 @@ public class FireExtinguisher : UsableObject {
 		base.Use (posX, posY, obj);
 		if (obj != null) {
 			BurningBox box = obj.GetComponent <BurningBox> ();
-			if (box != null) {
+			if (box != null && box.burning) {
 				box.PutOutFire ();
-				//Destroy (gameObject, 0.1f);
+				Destroy (gameObject, 0.1f);
 				return true;
 			}
 		}

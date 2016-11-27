@@ -22,7 +22,14 @@ public class Stone : UsableObject {
 	/// <param name="posY">Position y.</param>
 	/// <param name="obj">Object.</param>
 	public override bool Use(float posX, float posY, GameObject obj = null){
-		base.Use (posX, posY, obj);
+		//base.Use (posX, posY, obj);
+
+		//set the physics
+		GetComponent <Collider2D>().enabled = true;
+		GetComponent <Rigidbody2D>().isKinematic = false;
+
+		transform.localScale /= 4f;
+
 		if (obj != null) {
 			BreakableWall wall = obj.GetComponent <BreakableWall> ();
 			if (wall != null) {
@@ -44,5 +51,15 @@ public class Stone : UsableObject {
 		return false;
 	}
 
+
+
+
+	public override void Obtain(){
+		//set the physical state
+		GetComponent <Collider2D>().enabled = false;
+		GetComponent <Rigidbody2D>().isKinematic = true;
+		transform.localScale *= 4f;
+
+	}
 
 }

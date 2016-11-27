@@ -80,7 +80,7 @@ class Dialogues{
 		"I want to resurrect the Cthulhu with this tentacle. But I don't believe you can help me.",
 		"This is not from a living Cthulhu. Don't fool me. ",
 		"Did you really think a simple rock would hurt me?",
-		"test 7",
+		"The Fish is delicious!",
 		"test 8",
 		"test 9",
 		"test 10",

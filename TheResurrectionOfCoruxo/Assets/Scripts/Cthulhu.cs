@@ -99,6 +99,8 @@ public class Cthulhu : MonoBehaviour {
 	public void Feed(){
 		if(!grownLeg){
 			currentFedFished++;
+
+			DialogueControl.dialogueControl.StartDialogue (6);
 			if (currentFedFished >= requiredFishedToGrow) {
 				ObtainLeg ();
 				Poop ();

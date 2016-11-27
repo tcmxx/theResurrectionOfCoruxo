@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 guid: e1d84529836e14e9fa6de8ab025d4a61
-timeCreated: 1480155845
+timeCreated: 1480233369
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: treasureboxClick2_0
+    21300002: treasureboxClick2_1
+    21300004: treasureboxClick2_2
+    21300006: treasureboxClick2_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,7 +55,59 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: treasureboxClick2_0
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 326
+        width: 333
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: treasureboxClick2_1
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 381
+        width: 125
+        height: 289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: treasureboxClick2_2
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 34
+        width: 307
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: treasureboxClick2_3
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 38
+        width: 201
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
