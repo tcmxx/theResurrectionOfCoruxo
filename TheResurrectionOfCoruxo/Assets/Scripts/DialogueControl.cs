@@ -77,7 +77,7 @@ class Dialogues{
 		"Cthultu soul: Hello human",
 		"I need my 8 tentacles to resurrect",
 		"You burned my leg! I will reverse the time. Don't burn it again!",
-		"I want to resurrect the Cthulhu with this tentacle. But I don't believe you can help me.",
+		"I want to resurrect the Cthulhu with this tentacle. Bring me something from Cthulhu.",
 		"This is not from a living Cthulhu. Don't fool me. ",
 		"Did you really think a simple rock would hurt me?",
 		"The Fish is delicious!",
