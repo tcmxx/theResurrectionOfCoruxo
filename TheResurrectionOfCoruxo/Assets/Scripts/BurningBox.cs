@@ -57,9 +57,13 @@ public class BurningBox : Flamable {
 		burning = false;
 		sprite.sprite = null;
 		if (currentBurningTime >= maxBurningTime) {
-			GameObject.Instantiate (legBurntPref, transform.position,Quaternion.identity);
+			Vector3 tempPos = transform.position;
+			tempPos.z = 0;
+			GameObject.Instantiate (legBurntPref, tempPos,Quaternion.identity);
 		} else {
-			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+			Vector3 tempPos = transform.position;
+			tempPos.z = 0;
+			GameObject.Instantiate (legToGivePref, tempPos,Quaternion.identity);
 			GameObject.Instantiate (ashPrefeb, transform.position,Quaternion.identity);
 		}
 	}

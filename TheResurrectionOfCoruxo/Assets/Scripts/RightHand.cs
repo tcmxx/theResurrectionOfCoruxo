@@ -143,7 +143,11 @@ public class RightHand : MonoBehaviour {
 		usable.Obtain ();
 		PlayerControl.playerControl.EnableControls ();
 		usable.transform.SetParent (this.transform);
-		usable.transform.localPosition = Vector3.zero;
+		Vector3 localP = usable.transform.localPosition;
+		localP.x = 0;
+		localP.y = 0;
+		usable.transform.localPosition = localP;
+
 
 		handState = RightHandState.PickingBack;
 
