@@ -54,14 +54,22 @@ public class Fish : UsableObject {
 		if (obj != null) {
 
 			Cthulhu cthulhu = obj.GetComponent <Cthulhu> ();
-			if (cthulhu != null) {
+			if (cthulhu != null && cthulhu.wakeUp) {
 
 				cthulhu.Feed ();
 				Destroy (gameObject, 0.2f);
 				return true;
 			} else {
 				swimming = true;
+				initialPosition = transform.position;
+				InvokeRepeating ("GetNextDes",0,1/swimmingInterval);
+				GetNextDes ();
 			}
+		} else {
+			swimming = true;
+			initialPosition = transform.position;
+			InvokeRepeating ("GetNextDes",0,1/swimmingInterval);
+			GetNextDes ();
 		}
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;
@@ -71,7 +79,7 @@ public class Fish : UsableObject {
 	{
 
 		base.Obtain ();
-
+		CancelInvoke ();
 		swimming = false;
 	}
 }

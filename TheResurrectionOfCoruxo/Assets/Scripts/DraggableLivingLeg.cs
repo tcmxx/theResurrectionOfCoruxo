@@ -68,7 +68,7 @@ public class DraggableLivingLeg : MonoBehaviour {
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){
 		if (CanBeDragDown) {
-			transform.position = (projectedMousePos + initialPosition + dragDirection.normalized * dragTimes * 0.1f) * 0.5f;
+			transform.position = (projectedMousePos + initialPosition + dragDirection.normalized * dragTimes * 0.3f) * 0.5f;
 		} else {
 			transform.position = (projectedMousePos + initialPosition) * 0.5f;
 		}
@@ -84,7 +84,7 @@ public class DraggableLivingLeg : MonoBehaviour {
 	void GoBack(){
 		dragging = false;
 		if (CanBeDragDown) {
-			transform.position = initialPosition + dragDirection.normalized * dragTimes * 0.1f;
+			transform.position = initialPosition + dragDirection.normalized * dragTimes * 0.3f;
 		}
 		else {
 			transform.position = initialPosition;

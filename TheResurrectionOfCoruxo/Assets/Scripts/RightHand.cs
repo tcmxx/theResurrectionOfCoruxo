@@ -110,10 +110,11 @@ public class RightHand : MonoBehaviour {
 
 		yield return new WaitForSeconds (movingTime);
 
-		usable.Use (posX, posY, obj);
+
 
 
 		usable.transform.SetParent (null);
+		usable.Use (posX, posY, obj);
 		PlayerControl.playerControl.EnableControls ();
 
 

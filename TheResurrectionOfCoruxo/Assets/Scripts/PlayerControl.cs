@@ -58,6 +58,10 @@ public class PlayerControl : MonoBehaviour {
 		leftHandObj.SetActive (true);
 	}
 
+	public void LoseTorch(){
+		leftHandObj.SetActive (false);
+	}
+
 
 
 	void InputControl(){

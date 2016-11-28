@@ -31,8 +31,8 @@ public class Cthulhu : MonoBehaviour {
 	int currentFedFished = 0;
 	bool grownLeg = false;
 
-
-	bool wakeUp = false;
+	[HideInInspector]
+	public bool wakeUp = false;
 
 	Animator anim;
 	void Awake(){
@@ -60,6 +60,9 @@ public class Cthulhu : MonoBehaviour {
 
 		unl.PlayOneShot (unlock, 0.5f);
 
+		if (currentLegs == 3) {
+			PlayerControl.playerControl.LoseTorch ();
+		}
 
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
