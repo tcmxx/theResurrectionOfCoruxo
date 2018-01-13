@@ -32,8 +32,8 @@ public class LeftHand : MonoBehaviour {
 
 	public LeftHandState state {get{ return handState;}}
 	private LeftHandState handState;
-
-	Vector3 desPosition;
+    public LayerMask interactLayerMask;
+    Vector3 desPosition;
 
 	Animator anim;
 	void Awake(){
@@ -62,12 +62,15 @@ public class LeftHand : MonoBehaviour {
 
 	}
 
+    public void OnDisable()
+    {
+        PlayerControl.Instance.CurrentActiveHand = PlayerControl.Hand.Right;
+    }
+
+    public void UseTo(float posX, float posY){
 
 
-	public void UseTo(float posX, float posY, GameObject obj = null){
-
-
-		StartCoroutine (UseAnimation(torch, posX, posY, obj));
+		StartCoroutine (UseAnimation(torch, posX, posY));
 		leftH.PlayOneShot (left, 0.6f);
 
 		Debug.Log ("Use " + torch.gameObject.name + " at " + posX + ", " + posY);
@@ -75,17 +78,19 @@ public class LeftHand : MonoBehaviour {
 
 
 
+    public void InteractAt(Vector2 position)
+    {
+        if(handState == LeftHandState.None)
+            UseTo(position.x, position.y);
+    }
 
 
-
-	IEnumerator UseAnimation(UsableObject usable, float posX, float posY, GameObject obj = null){
+	IEnumerator UseAnimation(UsableObject usable, float posX, float posY){
 
 		Vector3 pos = new Vector3();
 		pos.x = posX;
 		pos.y = posY;
-
-		PlayerControl.playerControl.DisableControls ();
-
+        
 		desPosition = transform.parent.InverseTransformPoint (pos);
 
 		desPosition.z = defaultPosition.z;
@@ -96,9 +101,11 @@ public class LeftHand : MonoBehaviour {
 		mask.SetActive (true);
 		sprite.sprite = sprite1;
 		yield return new WaitForSeconds (lightUpTime/2);
-		usable.Use (posX, posY, obj);
 
-		PlayerControl.playerControl.EnableControls ();
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 100, interactLayerMask);
+
+        usable.Use (posX, posY, hit.collider.gameObject);
+        
 		handState = LeftHandState.UsingBack;
 
 		yield return new WaitForSeconds (lightUpTime/2);

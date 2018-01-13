@@ -5,27 +5,25 @@ public class RightHand : MonoBehaviour {
 
 
 
-	public Vector3 defaultPosition;
+	private Vector3 defaultPosition;
 
 	[HideInInspector]
 	public UsableObject currentUsable;
+    [HideInInspector]
+    public Interactable currentInteracable;
 
-
-	public float movingTime;
-	public float movingRate;
+    public float movingSpeed;
+    public float effectRadius = 1.5f;
 	AudioSource pick;
 	public AudioClip pickup;
 
-
-
-
+    public LayerMask interactLayerMask;
+    protected bool interacting = false;
 	public enum RightHandState{
 		None,
-		PickingTo,
-		PickingBack,
-		ThrowingTo,
-		ThrowingBack,
-		Holding,
+		GoingTo,
+		GoingBack,
+        Dragging
 
 	}
 
@@ -33,128 +31,139 @@ public class RightHand : MonoBehaviour {
 	public RightHandState state {get{ return handState;}}
 	private RightHandState handState;
 
-	Vector3 desPosition;
+	private Vector3 desPosition;
 
-	Animator anim;
+    private Vector3 lastMousePos;
+    private Camera mainCamera;
+
 	void Awake(){
-		anim = GetComponent <Animator> ();
 	}
 	// Use this for initialization
 	void Start () {
 		handState = RightHandState.None;
 		pick = GetComponent<AudioSource> ();
-	}
+        defaultPosition = transform.localPosition;
+        mainCamera = Camera.main;
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        
+        if(handState == RightHandState.Dragging && interacting)
+        {
+            if (currentInteracable)
+            {
+                currentInteracable.OnDrag.Invoke();
+            }
+            Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 deltaMouse = mousePos - lastMousePos;
+            deltaMouse.z = 0;
+            transform.position += deltaMouse;
+        }
+        else if(handState == RightHandState.Dragging && !interacting)
+        {
+            StartCoroutine(GoBackCoroutine());
+            if (currentInteracable)
+            {
+                currentInteracable.OnClickUp.Invoke();
+            }
+        }
 
-		if (handState == RightHandState.PickingTo || handState == RightHandState.ThrowingTo) {
-
-			transform.localPosition = Vector3.Lerp (transform.localPosition, desPosition, movingRate);
-
-		} else if (handState == RightHandState.ThrowingBack || handState == RightHandState.PickingBack) {
-
-			transform.localPosition = Vector3.Lerp (transform.localPosition, defaultPosition, movingRate);
-		} else if (handState == RightHandState.None || handState == RightHandState.Holding) {
-			transform.localPosition = defaultPosition;
-		}
-
-	
-	}
-
-
-
-	public bool UseCurrentUsable(float posX, float posY, GameObject obj = null){
-
-
-		if (currentUsable != null) {
-
-			StartCoroutine (UseAnimation(currentUsable, posX, posY, obj));
-
-
-			Debug.Log ("Use " + currentUsable.gameObject.name + " at " + posX + ", " + posY);
-			currentUsable = null;
-			return true;
-		} else {
-			return false;
-		}
-	}
+	    lastMousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+    }
 
 
 
-	public void PickAt(UsableObject usable){
-		if (usable == null)
-			return;
-		StartCoroutine (PickAnimation(usable));
-		pick.PlayOneShot (pickup, 0.6f);
-		currentUsable = usable;
+    public void InteractAt(Vector2 position)
+    {
+        if (handState != RightHandState.None)
+            return;
+        interacting = true;
+        desPosition = transform.parent.InverseTransformPoint(position);
+        desPosition.z = defaultPosition.z;
 
-	}
+        StartCoroutine(GoToCoroutine());
+    }
 
+    public void EndInteract()
+    {
+        interacting = false;
+    }
 
-	IEnumerator UseAnimation(UsableObject usable, float posX, float posY, GameObject obj = null){
+   
+    IEnumerator GoBackCoroutine()
+    {
+        handState = RightHandState.GoingBack;
+        //move to default
+        Vector3 moveDir = defaultPosition - transform.localPosition;
+        float movedDist = 0;
+        while (movedDist < moveDir.magnitude)
+        {
+            yield return null;
+            transform.localPosition = transform.localPosition + moveDir.normalized * Time.deltaTime * movingSpeed;
+            movedDist += Time.deltaTime * movingSpeed;
+        }
 
-		Vector3 pos = new Vector3();
-		pos.x = posX;
-		pos.y = posY;
+        transform.localPosition = defaultPosition;
+        handState = RightHandState.None;
+    }
 
+	IEnumerator GoToCoroutine(){
 
-		PlayerControl.playerControl.DisableControls ();
+		handState = RightHandState.GoingTo;
 
+        //move to destination
+        Vector3 moveDir = desPosition - transform.localPosition;
+        float movedDist = 0;
+        while (movedDist < moveDir.magnitude)
+        {
+            yield return null;
+            transform.localPosition = transform.localPosition + moveDir.normalized*Time.deltaTime* movingSpeed;
+            movedDist += Time.deltaTime * movingSpeed;
+        }
 
-		desPosition = transform.parent.InverseTransformPoint (pos);
+        transform.localPosition = desPosition;
 
-		desPosition.z = defaultPosition.z;
+        //interact
+        
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, effectRadius, Vector2.zero, 100, interactLayerMask);
+        if (hit.collider != null)
+        {
+            if (currentUsable)
+            {
+                currentUsable.Use(transform.position.x, transform.position.y, hit.collider.gameObject);
+                currentUsable.transform.SetParent(null);
+                currentUsable = null;
+            }
+            else
+            {
+                currentUsable = hit.collider.gameObject.GetComponent<UsableObject>();
+                if (currentUsable != null)
+                {
+                    //obtain the usable
+                    currentUsable.Obtain();
+                    currentUsable.transform.SetParent(this.transform);
+                    Vector3 localP = currentUsable.transform.localPosition;
+                    localP.x = 0;
+                    localP.y = 0;
+                    currentUsable.transform.localPosition = localP;
+                    pick.PlayOneShot(pickup, 0.6f);
+                }
+                else
+                {
+                    //interact
+                    currentInteracable = hit.collider.gameObject.GetComponent<Interactable>();
+                    if(currentInteracable != null)
+                        currentInteracable.OnClickLeft.Invoke();
+                }
+            }
+        }
+        handState = RightHandState.Dragging;
 
-		handState = RightHandState.ThrowingTo;
+    }
 
-		yield return new WaitForSeconds (movingTime);
-
-
-
-
-		usable.transform.SetParent (null);
-		usable.Use (posX, posY, obj);
-		PlayerControl.playerControl.EnableControls ();
-
-
-
-		handState = RightHandState.ThrowingBack;
-
-		yield return new WaitForSeconds (movingTime);
-
-
-		handState = RightHandState.None;
-
-	}
-
-
-	IEnumerator PickAnimation(UsableObject usable){
-
-		PlayerControl.playerControl.DisableControls ();
-
-		desPosition = transform.parent.InverseTransformPoint (usable.transform.position);
-
-		desPosition.z = defaultPosition.z;
-
-		handState = RightHandState.PickingTo;
-
-		yield return new WaitForSeconds (movingTime);
-
-		usable.Obtain ();
-		PlayerControl.playerControl.EnableControls ();
-		usable.transform.SetParent (this.transform);
-		Vector3 localP = usable.transform.localPosition;
-		localP.x = 0;
-		localP.y = 0;
-		usable.transform.localPosition = localP;
-
-
-		handState = RightHandState.PickingBack;
-
-		yield return new WaitForSeconds (movingTime);
-
-		handState = RightHandState.Holding;
-
-	}
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, effectRadius);
+    }
 }

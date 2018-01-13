@@ -79,7 +79,9 @@ public class DraggableLivingLeg : MonoBehaviour {
 		transform.position = initialPosition;
 		gameObject.SetActive (false);
 		cthulhu.LoseLeg ();
-	}
+        CanBeDragDown = false;
+
+    }
 
 	void GoBack(){
 		dragging = false;

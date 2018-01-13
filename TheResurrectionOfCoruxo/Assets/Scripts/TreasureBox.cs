@@ -40,7 +40,7 @@ public class TreasureBox : MonoBehaviour {
 		if (!opened) {
 			Open ();
 		} else if (opened && containTreasure && !treasureShown) {
-			PlayerControl.playerControl.DisableControls ();
+			PlayerControl.Instance.SetEnableControls (false);
 			Invoke ("EnableControls", 0.5f);
 			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
 			treasureShown = true;
@@ -48,8 +48,8 @@ public class TreasureBox : MonoBehaviour {
 	}
 
 	public void EnableControls(){
-		PlayerControl.playerControl.EnableControls ();
-	}
+        PlayerControl.Instance.SetEnableControls(true);
+    }
 
 	void Open(){
 		opened = true;

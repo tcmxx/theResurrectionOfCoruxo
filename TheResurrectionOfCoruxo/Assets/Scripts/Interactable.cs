@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(EventTrigger))]
 public class Interactable : MonoBehaviour {
 
 
@@ -9,7 +11,9 @@ public class Interactable : MonoBehaviour {
 	public UnityEvent OnClickLeft;
 	public UnityEvent OnClickUp;
 	public UnityEvent OnDrag;
+    
 
+    /*
 	void OnMouseDown(){
 		
 		if (PlayerControl.playerControl.rightHand.state == RightHand.RightHandState.None) {
@@ -38,7 +42,7 @@ public class Interactable : MonoBehaviour {
 		if (PlayerControl.playerControl.rightHand.state == RightHand.RightHandState.None) {
 			OnClickUp.Invoke ();
 		}
-	}
+	}*/
 
 
 

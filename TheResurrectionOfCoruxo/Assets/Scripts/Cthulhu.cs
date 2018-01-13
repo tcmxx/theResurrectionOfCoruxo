@@ -41,7 +41,6 @@ public class Cthulhu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;
-		CameraMove.cam.changeIndex (1);
 		ending = GetComponent<AudioSource> ();
 		unl = GetComponent<AudioSource> ();
 	}
@@ -56,18 +55,16 @@ public class Cthulhu : MonoBehaviour {
 	public void ObtainLeg(){
 
 
-		CameraMove.cam.changeIndex ((currentLegs + 3) >= 8? 8:(currentLegs + 3));
-
 		unl.PlayOneShot (unlock, 0.5f);
 
 		if (currentLegs == 3) {
-			PlayerControl.playerControl.LoseTorch ();
+			PlayerControl.Instance.LoseTorch ();
 		}
 
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
-
-		if (currentLegs >= 8) {
+        CameraMove.Instance.Unlock(currentLegs);
+        if (currentLegs >= 8) {
 			CutSceneController.cutSceneController.PlayCutScene ();
 			ending.PlayOneShot (end, 0.6f);
 		}
@@ -93,8 +90,8 @@ public class Cthulhu : MonoBehaviour {
 	public void WakeUp(){
 		DialogueControl.dialogueControl.StartDialogue (0);
 		spriteRenderer.sprite = cthulhuNormalSprite;
-		CameraMove.cam.changeIndex (2);
 		wakeUp = true;
+        CameraMove.Instance.Unlock(0);
 
 	}
 

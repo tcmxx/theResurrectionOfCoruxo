@@ -51,8 +51,6 @@ public class CutSceneController : MonoBehaviour {
 
 
 	public void PlayCutScene(){
-		CameraMove.cam.transform.position = Vector3.up * 1000;
-		CameraMove.cam.DisableCamera ();
 		playing = true;
 		imageUI.SetActive (true);
 		imageUI.GetComponent <SpriteRenderer>().sprite = cutScene0Images[0];

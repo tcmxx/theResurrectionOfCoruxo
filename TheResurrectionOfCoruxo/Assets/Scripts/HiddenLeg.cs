@@ -14,7 +14,7 @@ public class HiddenLeg : MonoBehaviour {
 
 	Vector3 initialPosition;
 
-	float stepSize = 0.3f;
+	public float stepSize = 0.3f;
 
 	bool dragging = false;
 	int dragTimes = 0;
@@ -23,13 +23,17 @@ public class HiddenLeg : MonoBehaviour {
 
 
 	Animator anim;
+    protected Camera mainCamera;
+
 	void Awake(){
 		anim = GetComponent <Animator> ();
 	}
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
-	}
+        mainCamera = Camera.main;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -39,24 +43,24 @@ public class HiddenLeg : MonoBehaviour {
 
 	public void OnDragStart(){
 		dragging = true;
-		mouseInitPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		mouseInitPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
 		mouseInitPos.z = initialPosition.z;
 	}
 
 	public void OnDragging(){
 		if (dragging) {
-			Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
 			mouseWorldPos.z = initialPosition.z;
 
 			float length = Vector3.Dot (dragDirection.normalized, mouseWorldPos - mouseInitPos);
 			if (length <= 0) {
 				length = 0;
 			}
-			Vector3 projectedMousePos = length * dragDirection.normalized + initialPosition  + dragDirection.normalized*dragTimes*stepSize;
+			Vector3 mouseMoved = length * dragDirection.normalized;
 
-			DraggingPositionAdjust (projectedMousePos);
+			DraggingPositionAdjust (mouseMoved);
 
-			if ((projectedMousePos - mouseInitPos).magnitude > dragDistanceEachTime) {
+			if ((mouseMoved).magnitude > dragDistanceEachTime) {
 				dragTimes++;
 				if (dragTimes >= dragTimesRequired) {
 					Spawn ();
@@ -72,8 +76,8 @@ public class HiddenLeg : MonoBehaviour {
 	}
 
 
-	void DraggingPositionAdjust(Vector3 projectedMousePos){
-		transform.position = (projectedMousePos + initialPosition  + dragDirection.normalized*dragTimes*stepSize) * 0.5f;
+	void DraggingPositionAdjust(Vector3 delta){
+		transform.position = initialPosition + dragDirection.normalized * dragTimes * stepSize + delta * 0.5f;
 	}
 
 	void Spawn(){

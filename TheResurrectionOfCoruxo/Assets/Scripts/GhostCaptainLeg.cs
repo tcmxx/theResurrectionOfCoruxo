@@ -29,11 +29,11 @@ public class GhostCaptainLeg : MonoBehaviour {
 			GameObject.Instantiate (legToGivePref, transform.position, Quaternion.identity);
 			taken = true;
 		}
-		PlayerControl.playerControl.DisableControls ();
+		PlayerControl.Instance.SetEnableControls (false);
 	}
 
 
 	public void EnableControls(){
-		PlayerControl.playerControl.EnableControls ();
-	}
+        PlayerControl.Instance.SetEnableControls(true);
+    }
 }

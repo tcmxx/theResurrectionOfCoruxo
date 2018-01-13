@@ -20,9 +20,9 @@ public class Boat : MonoBehaviour {
 	bool dragging = false;
 	int dragTimes = 0;
 
-
-
-	Animator anim;
+    Vector3 mouseInitPos;
+    protected Camera mainCamera;
+    Animator anim;
 	void Awake(){
 		anim = GetComponent <Animator> ();
 	}
@@ -31,7 +31,8 @@ public class Boat : MonoBehaviour {
 	void Start () {
 		initialPosition = transform.position;
 		savedinitialPosition = initialPosition;
-	}
+        mainCamera = Camera.main;
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -42,25 +43,29 @@ public class Boat : MonoBehaviour {
 	}
 
 
-	public void OnDragStart(){
-		if(!ghostState)
-			dragging = true;
-	}
-
+    public void OnDragStart()
+    {
+        if (!ghostState)
+        {
+            dragging = true;
+            mouseInitPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            mouseInitPos.z = initialPosition.z;
+        }
+    }
 	public void OnDragging(){
 		if (dragging && !ghostState) {
 			Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 			mouseWorldPos.z = initialPosition.z;
 
-			float length = Vector3.Dot (dragDirection.normalized, mouseWorldPos - initialPosition);
+			float length = Vector3.Dot (dragDirection.normalized, mouseWorldPos - mouseInitPos);
 			if (length <= 0) {
 				length = 0;
 			}
-			Vector3 projectedMousePos = length * dragDirection.normalized + initialPosition;
+			Vector3 projectedMouseDelta = length * dragDirection.normalized ;
 
-			DraggingPositionAdjust (projectedMousePos);
+			DraggingPositionAdjust (projectedMouseDelta);
 
-			if ((projectedMousePos - initialPosition).magnitude > dragDistanceEachTime) {
+			if ((projectedMouseDelta).magnitude > dragDistanceEachTime) {
 				dragTimes++;
 				if (dragTimes >= dragTimesRequired) {
 					TurnIntoGhost ();
@@ -78,7 +83,7 @@ public class Boat : MonoBehaviour {
 
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){
-		transform.position = projectedMousePos * 0.6f + (initialPosition  + dragDirection.normalized*dragTimes*0.2f) * 0.4f;
+		transform.position = projectedMousePos * 0.6f + initialPosition  + dragDirection.normalized*dragTimes*0.2f;
 	}
 
 	void TurnIntoGhost(){

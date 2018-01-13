@@ -48,9 +48,10 @@ public class Fish : UsableObject {
 	/// <param name="obj">Object.</param>
 	public override bool Use(float posX, float posY, GameObject obj = null){
 		base.Use (posX, posY, obj);
+        initialPosition = transform.position;
+        des = initialPosition;
 
-		initialPosition = transform.position;
-		GetComponent <Rigidbody2D>().isKinematic = true;
+        GetComponent <Rigidbody2D>().isKinematic = true;
 		if (obj != null) {
 
 			Cthulhu cthulhu = obj.GetComponent <Cthulhu> ();
@@ -62,14 +63,16 @@ public class Fish : UsableObject {
 			} else {
 				swimming = true;
 				initialPosition = transform.position;
-				InvokeRepeating ("GetNextDes",0,1/swimmingInterval);
-				GetNextDes ();
+                des = initialPosition;
+                currentInd = -1;
+                InvokeRepeating ("GetNextDes", 1 / swimmingInterval, 1/swimmingInterval);
 			}
 		} else {
 			swimming = true;
 			initialPosition = transform.position;
-			InvokeRepeating ("GetNextDes",0,1/swimmingInterval);
-			GetNextDes ();
+            des = initialPosition;
+            currentInd = -1;
+            InvokeRepeating ("GetNextDes", 1 / swimmingInterval, 1/swimmingInterval);
 		}
 		//PlayerControl.playerControl.Unlcoked (1);
 		return false;
