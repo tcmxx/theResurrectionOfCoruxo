@@ -34,10 +34,6 @@ public class Cthulhu : MonoBehaviour {
 	[HideInInspector]
 	public bool wakeUp = false;
 
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;

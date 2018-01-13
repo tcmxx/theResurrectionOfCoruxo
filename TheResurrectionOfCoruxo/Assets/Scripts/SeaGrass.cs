@@ -4,13 +4,6 @@ using System.Collections;
 public class SeaGrass : MonoBehaviour {
 
 
-
-
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
-
 	// Use this for initialization
 	void Start () {
 	
@@ -24,6 +17,6 @@ public class SeaGrass : MonoBehaviour {
 
 	public void Grow(){
 
-		transform.localScale += Vector3.up * 10;
+		transform.localScale += Vector3.up * 5;
 	}
 }

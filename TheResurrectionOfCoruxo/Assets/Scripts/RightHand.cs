@@ -127,36 +127,35 @@ public class RightHand : MonoBehaviour {
         //interact
         
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, effectRadius, Vector2.zero, 100, interactLayerMask);
-        if (hit.collider != null)
+
+        if (currentUsable)
         {
-            if (currentUsable)
+            currentUsable.Use(transform.position.x, transform.position.y, hit.collider==null?null: hit.collider.gameObject);
+            currentUsable.transform.SetParent(null);
+            currentUsable = null;
+
+        }else if (hit.collider != null)
+        {
+            currentUsable = hit.collider.gameObject.GetComponent<UsableObject>();
+            if (currentUsable != null)
             {
-                currentUsable.Use(transform.position.x, transform.position.y, hit.collider.gameObject);
-                currentUsable.transform.SetParent(null);
-                currentUsable = null;
+                //obtain the usable
+                currentUsable.Obtain();
+                currentUsable.transform.SetParent(this.transform);
+                Vector3 localP = currentUsable.transform.localPosition;
+                localP.x = 0;
+                localP.y = 0;
+                currentUsable.transform.localPosition = localP;
+                pick.PlayOneShot(pickup, 0.6f);
             }
             else
             {
-                currentUsable = hit.collider.gameObject.GetComponent<UsableObject>();
-                if (currentUsable != null)
-                {
-                    //obtain the usable
-                    currentUsable.Obtain();
-                    currentUsable.transform.SetParent(this.transform);
-                    Vector3 localP = currentUsable.transform.localPosition;
-                    localP.x = 0;
-                    localP.y = 0;
-                    currentUsable.transform.localPosition = localP;
-                    pick.PlayOneShot(pickup, 0.6f);
-                }
-                else
-                {
-                    //interact
-                    currentInteracable = hit.collider.gameObject.GetComponent<Interactable>();
-                    if(currentInteracable != null)
-                        currentInteracable.OnClickLeft.Invoke();
-                }
+                //interact
+                currentInteracable = hit.collider.gameObject.GetComponent<Interactable>();
+                if(currentInteracable != null)
+                    currentInteracable.OnClickLeft.Invoke();
             }
+            
         }
         handState = RightHandState.Dragging;
 

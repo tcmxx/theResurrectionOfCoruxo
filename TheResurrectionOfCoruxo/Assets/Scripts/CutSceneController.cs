@@ -36,7 +36,6 @@ public class CutSceneController : MonoBehaviour {
 				currentInd++;
 				if (currentInd >= cutScene0Images.Length) {
 					playing = false;
-					imageUI.SetActive (false);
 					SceneManager.LoadScene ("MenuScene");
 				} else {
 					imageUI.GetComponent <SpriteRenderer> ().sprite = cutScene0Images [currentInd];

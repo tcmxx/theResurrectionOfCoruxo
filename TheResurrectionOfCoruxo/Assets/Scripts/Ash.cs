@@ -4,14 +4,6 @@ using System.Collections;
 public class Ash : UsableObject {
 
 
-
-
-
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
-
 	// Use this for initialization
 	void Start () {
 	

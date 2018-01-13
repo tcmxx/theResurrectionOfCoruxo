@@ -34,11 +34,7 @@ public class LeftHand : MonoBehaviour {
 	private LeftHandState handState;
     public LayerMask interactLayerMask;
     Vector3 desPosition;
-
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
+    
 	// Use this for initialization
 	void Start () {
 		handState = LeftHandState.None;
@@ -103,8 +99,8 @@ public class LeftHand : MonoBehaviour {
 		yield return new WaitForSeconds (lightUpTime/2);
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.zero, 100, interactLayerMask);
-
-        usable.Use (posX, posY, hit.collider.gameObject);
+        
+        usable.Use (posX, posY, hit.collider==null?null: hit.collider.gameObject);
         
 		handState = LeftHandState.UsingBack;
 

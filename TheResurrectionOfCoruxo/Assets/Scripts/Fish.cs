@@ -14,10 +14,6 @@ public class Fish : UsableObject {
 	Vector3 initialPosition;
 	int currentInd = -1;
 	Vector3 des;
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
 
 
 	// Use this for initialization

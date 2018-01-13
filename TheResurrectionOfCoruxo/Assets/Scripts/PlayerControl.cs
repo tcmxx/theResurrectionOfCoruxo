@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class PlayerControl : MonoBehaviour {
 	public LeftHand leftHand;
 	public GameObject leftHandObj;
     public float handSelectedScale = 1.3f;
-	public LayerMask usableLayerMask;
+	public LayerMask clickableLayerMask;
 	public LayerMask notAllowLayerMask;
 
 	Camera mainCamera;
@@ -38,11 +39,15 @@ public class PlayerControl : MonoBehaviour {
             if(currentActiveHand == Hand.Left)
             {
                 leftHand.transform.localScale = leftHandInitialScale * handSelectedScale;
+                leftHand.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1);
                 rightHand.transform.localScale = rightHandInitialScale;
+                rightHand.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 0.4f);
             }
             else{
                 leftHand.transform.localScale = leftHandInitialScale;
+                leftHand.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 0.4f);
                 rightHand.transform.localScale = rightHandInitialScale * handSelectedScale;
+                rightHand.GetComponentInChildren<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
             }
         }
 
@@ -91,10 +96,13 @@ public class PlayerControl : MonoBehaviour {
 
 
 	void InputControl(){
-		if (Input.GetMouseButtonDown (0) && controlsEnable) {
+
+    
+
+        if (Input.GetMouseButtonDown (0) && controlsEnable && !GamePlayUI.Instance.WhetherOnButton()) {
             
 			Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
-			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, usableLayerMask);
+			RaycastHit2D hit = Physics2D.Raycast (mouseWorldPos, Vector2.zero, 100, clickableLayerMask);
             RaycastHit2D hitNotAllow = Physics2D.Raycast(mouseWorldPos, Vector2.zero, 100, notAllowLayerMask);
 
             Debug.Log ("Pointer down at " + mouseWorldPos);

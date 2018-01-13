@@ -21,10 +21,6 @@ public class BurningBox : Flamable {
 
 	float currentBurningTime = 0;
 
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
 	// Use this for initialization
 	void Start () {
 		burn = GetComponent<AudioSource> ();

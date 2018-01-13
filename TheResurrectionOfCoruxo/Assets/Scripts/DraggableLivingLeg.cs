@@ -9,8 +9,8 @@ public class DraggableLivingLeg : MonoBehaviour {
 	public int dragTimesRequired;
 	public float dragDistanceEachTime;
 	public Vector3 dragDirection;
-
-	public GameObject legToGivePref;
+    public float activeScale = 1.5f;
+    public GameObject legToGivePref;
 
 	public Cthulhu cthulhu;
 
@@ -35,7 +35,9 @@ public class DraggableLivingLeg : MonoBehaviour {
 
 	public void OnDragStart(){
 		dragging = true;
-	}
+        transform.localScale *= activeScale;
+
+    }
 
 	public void OnDragging(){
 		if (dragging) {
@@ -63,7 +65,8 @@ public class DraggableLivingLeg : MonoBehaviour {
 
 	public void OnDragEnd(){
 		GoBack ();
-	}
+        transform.localScale /= activeScale;
+    }
 
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){

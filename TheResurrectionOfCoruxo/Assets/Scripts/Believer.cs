@@ -10,13 +10,6 @@ public class Believer : MonoBehaviour {
 
 	bool given = false;
 
-	Animator anim;
-
-
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
-
 	// Use this for initialization
 	void Start () {
 	

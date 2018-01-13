@@ -9,7 +9,7 @@ public class HiddenLeg : MonoBehaviour {
 	public int dragTimesRequired;
 	public float dragDistanceEachTime;
 	public Vector3 dragDirection;
-
+    public float activeScale = 1.5f;
 	public GameObject legToGivePref;
 
 	Vector3 initialPosition;
@@ -21,13 +21,8 @@ public class HiddenLeg : MonoBehaviour {
 
 	Vector3 mouseInitPos;
 
-
-	Animator anim;
     protected Camera mainCamera;
-
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
+    
 	// Use this for initialization
 	void Start () {
 		initialPosition = transform.position;
@@ -45,6 +40,7 @@ public class HiddenLeg : MonoBehaviour {
 		dragging = true;
 		mouseInitPos = mainCamera.ScreenToWorldPoint (Input.mousePosition);
 		mouseInitPos.z = initialPosition.z;
+        transform.localScale *= activeScale;
 	}
 
 	public void OnDragging(){
@@ -73,7 +69,8 @@ public class HiddenLeg : MonoBehaviour {
 
 	public void OnDragEnd(){
 		GoBack ();
-	}
+        transform.localScale /= activeScale;
+    }
 
 
 	void DraggingPositionAdjust(Vector3 delta){

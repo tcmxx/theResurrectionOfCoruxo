@@ -8,8 +8,8 @@ public class Boat : MonoBehaviour {
 	public Vector3 dragDirection;
 	public SpriteRenderer sprite;
 	public Sprite sprite1;
-
-	public GameObject ghostCaptainPref;
+    public float activeScale = 1.5f;
+    public GameObject ghostCaptainPref;
 
 	Vector3 initialPosition;
 	Vector3 savedinitialPosition;
@@ -22,10 +22,6 @@ public class Boat : MonoBehaviour {
 
     Vector3 mouseInitPos;
     protected Camera mainCamera;
-    Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
 
 	// Use this for initialization
 	void Start () {
@@ -50,6 +46,7 @@ public class Boat : MonoBehaviour {
             dragging = true;
             mouseInitPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             mouseInitPos.z = initialPosition.z;
+            transform.localScale *= activeScale;
         }
     }
 	public void OnDragging(){
@@ -79,7 +76,9 @@ public class Boat : MonoBehaviour {
 
 	public void OnDragEnd(){
 		GoBack ();
-	}
+        if(!ghostState)
+            transform.localScale /= activeScale;
+    }
 
 
 	void DraggingPositionAdjust(Vector3 projectedMousePos){

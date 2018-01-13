@@ -14,10 +14,7 @@ public class BreakableWall : MonoBehaviour {
 	bool broken = false;
 
 	public SpriteRenderer spriteRenderer;
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
+
 	// Use this for initialization
 	void Start () {
 	

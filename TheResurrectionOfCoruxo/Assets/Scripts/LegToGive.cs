@@ -6,11 +6,7 @@ public class LegToGive : UsableObject {
 	public bool triggerBeliever = false;
 	public bool burnt = false;
 
-
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
+  
 
 	// Use this for initialization
 	void Start () {

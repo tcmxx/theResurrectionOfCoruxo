@@ -7,10 +7,6 @@ public class FlamableLight : Flamable {
 	public GameObject darkness;
 	public GameObject leg;
 
-	Animator anim;
-	void Awake(){
-		anim = GetComponent <Animator> ();
-	}
 	// Use this for initialization
 	void Start () {
 	
