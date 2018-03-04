@@ -15,12 +15,13 @@ public class BurningBox : Flamable {
 	public GameObject legToGivePref;
 	public GameObject legBurntPref;
 
+    public string legEventName;
 	[HideInInspector]
 	public bool burning = false;
 	bool burned = false;
 
 	float currentBurningTime = 0;
-
+    protected GameObject ashRef;
 	// Use this for initialization
 	void Start () {
 		burn = GetComponent<AudioSource> ();
@@ -59,11 +60,28 @@ public class BurningBox : Flamable {
 		} else {
 			Vector3 tempPos = transform.position;
 			tempPos.z = legToGivePref.transform.position.z;
-			GameObject.Instantiate (legToGivePref, tempPos,Quaternion.identity);
-			GameObject.Instantiate (ashPrefeb, transform.position,Quaternion.identity);
-		}
+			var obj = GameObject.Instantiate (legToGivePref, tempPos,Quaternion.identity);
+            ashRef = GameObject.Instantiate (ashPrefeb, transform.position,Quaternion.identity);
+
+            obj.GetComponent<LegToGive>().eventName = legEventName;
+        }
 	}
 
+    public void OnBurntOccurredAshNot()
+    {
+        burned = true;
+        burning = false;
+        sprite.sprite = null;
+        if(ashPrefeb != null)
+            ashRef = GameObject.Instantiate(ashPrefeb, transform.position, Quaternion.identity);
+    }
+
+    public void OnAshOccurred()
+    {
+        ashPrefeb = null;
+        if (ashRef)
+            ashRef.SetActive(false);
+    }
 
 	public void PutOutFire(){
 		BurnOut ();

@@ -12,6 +12,8 @@ public class HiddenLeg : MonoBehaviour {
     public float activeScale = 1.5f;
 	public GameObject legToGivePref;
 
+    public string legEventName;
+
 	Vector3 initialPosition;
 
 	public float stepSize = 0.3f;
@@ -78,8 +80,10 @@ public class HiddenLeg : MonoBehaviour {
 	}
 
 	void Spawn(){
-		GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
-		Destroy (gameObject);
+		var obj = GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+        obj.GetComponent<LegToGive>().eventName = legEventName;
+
+        Destroy (gameObject);
 	}
 
 	void GoBack(){

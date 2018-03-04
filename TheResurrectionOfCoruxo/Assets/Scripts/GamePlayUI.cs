@@ -38,7 +38,10 @@ public class GamePlayUI : MonoBehaviour {
         //upButton.
     }
 
-   
+   public void SaveButtonClicked()
+    {
+        GameSaveManager.Instance.Save();
+    }
 
     public bool WhetherOnButton()
     {

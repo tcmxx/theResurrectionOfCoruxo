@@ -39,16 +39,35 @@ public class Cthulhu : MonoBehaviour {
 		currentLegs = 0;
 		ending = GetComponent<AudioSource> ();
 		unl = GetComponent<AudioSource> ();
-	}
+        Initialize();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        
 
+    }
 
+    protected void Initialize()
+    {
+        var events = GameSaveManager.Instance.OccurredEvents();
+        for(int i = 0; i < events.Count; ++i)
+        {
+            legs[currentLegs].SetActive(true);
+            currentLegs++;
+            CameraMove.Instance.Unlock(currentLegs);
+        }
 
-	public void ObtainLeg(){
+        if(events.Count > 0)
+        {
+            spriteRenderer.sprite = cthulhuNormalSprite;
+            wakeUp = true;
+            CameraMove.Instance.Unlock(0);
+        }
+    }
+
+	public void ObtainLeg(string eventName){
 
 
 		unl.PlayOneShot (unlock, 0.5f);
@@ -64,6 +83,8 @@ public class Cthulhu : MonoBehaviour {
 			CutSceneController.cutSceneController.PlayCutScene ();
 			ending.PlayOneShot (end, 0.6f);
 		}
+
+        GameSaveManager.Instance.SetEventOccurred(eventName);
 	}
 
 	public void LoseLeg(){
@@ -98,7 +119,7 @@ public class Cthulhu : MonoBehaviour {
 
 			DialogueControl.dialogueControl.StartDialogue (6);
 			if (currentFedFished >= requiredFishedToGrow) {
-				ObtainLeg ();
+				ObtainLeg ("Leg_FeedFish");
 				Poop ();
 				grownLeg = true;
 				currentFedFished = 0;

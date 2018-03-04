@@ -13,7 +13,7 @@ public class TreasureBox : MonoBehaviour {
 
 
 	public GameObject ghostPref;
-
+    public string legEventName;
 
 	bool opened = false;
 	bool treasureShown = false;
@@ -36,8 +36,9 @@ public class TreasureBox : MonoBehaviour {
 		} else if (opened && containTreasure && !treasureShown) {
 			PlayerControl.Instance.SetEnableControls (false);
 			Invoke ("EnableControls", 0.5f);
-			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
-			treasureShown = true;
+			var obj = GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+            obj.GetComponent<LegToGive>().eventName = legEventName;
+            treasureShown = true;
 		}
 	}
 
@@ -49,9 +50,27 @@ public class TreasureBox : MonoBehaviour {
 		opened = true;
 		if (containTreasure == true) {
 			sprite.sprite = newSprite;
-			GameObject.Instantiate (ghostPref, transform.position + Vector3.up * 3,Quaternion.identity);
-		} else {
+			var obj = GameObject.Instantiate (ghostPref, transform.position + Vector3.up * 3,Quaternion.identity);
+            
+        } else {
 			sprite.sprite = newSprite2;
 		}
 	}
+
+    public void InitializedOpen()
+    {
+        opened = true;
+        if (containTreasure == true)
+        {
+            sprite.sprite = newSprite;
+            var obj = GameObject.Instantiate(ghostPref, transform.position + Vector3.up * 3, Quaternion.identity);
+            treasureShown = true;
+
+        }
+        else
+        {
+            sprite.sprite = newSprite2;
+        }
+        
+    }
 }

@@ -35,7 +35,7 @@ public class BreakableWall : MonoBehaviour {
 	}
 
 
-	void Break(){
+	public void Break(){
 		sprite.sprite = sprite2;
 		GetComponent <Collider2D>().enabled = false;
 		broken = true;

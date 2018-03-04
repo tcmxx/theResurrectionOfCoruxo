@@ -6,6 +6,7 @@ public class LegToGive : UsableObject {
 	public bool triggerBeliever = false;
 	public bool burnt = false;
 
+    public string eventName;
   
 
 	// Use this for initialization
@@ -34,7 +35,7 @@ public class LegToGive : UsableObject {
 				if (burnt) {
 					creature.ObtainWrongLeg ();
 				} else {
-					creature.ObtainLeg ();
+					creature.ObtainLeg (eventName);
 				}
 
 				Destroy (gameObject, 0.1f);

@@ -5,9 +5,9 @@ public class Monster : MonoBehaviour {
 
 
 	public GameObject legToGivePref;
+    public string legEventName;
 
-
-	bool empty = false;
+    bool empty = false;
 
 	Animator anim;
 	void Awake(){
@@ -31,11 +31,17 @@ public class Monster : MonoBehaviour {
 
 	public void HitByAsh(){
 		if (empty == false) {
-			GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
+			var obj = GameObject.Instantiate (legToGivePref, transform.position,Quaternion.identity);
 			empty = true;
 			anim.SetTrigger ("legtaken");
-		}
+
+            obj.GetComponent<LegToGive>().eventName = legEventName;
+        }
 	}
 
-
+    public void InitializeAfter()
+    {
+        empty = true;
+        anim.SetTrigger("legtaken");
+    }
 }
