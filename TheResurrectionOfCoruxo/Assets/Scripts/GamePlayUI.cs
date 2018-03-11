@@ -15,6 +15,7 @@ public class GamePlayUI : MonoBehaviour {
     public Button downButton;
     public Button leftButton;
     public Button rightButton;
+    public GameObject savedPanelRef;
 
     protected GraphicRaycaster raycaster;
     private void Awake()
@@ -57,5 +58,17 @@ public class GamePlayUI : MonoBehaviour {
         raycaster.Raycast(m_PointerEventData, results);
 
         return results.Count > 0;
+    }
+
+    public void ShowSavedPanel()
+    {
+        savedPanelRef.SetActive(true);
+        Invoke("DiactiveSavedPanel", 2);
+        
+    }
+
+    protected void DiactiveSavedPanel()
+    {
+        savedPanelRef.SetActive(false);
     }
 }

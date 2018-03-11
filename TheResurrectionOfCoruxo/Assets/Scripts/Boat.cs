@@ -85,8 +85,9 @@ public class Boat : MonoBehaviour {
 		transform.position = projectedMousePos * 0.6f + initialPosition  + dragDirection.normalized*dragTimes*0.2f;
 	}
 
-	void TurnIntoGhost(){
-		GameObject.Instantiate (ghostCaptainPref, transform.position,Quaternion.identity);
+	public void TurnIntoGhost(bool hasCaptain = true){
+        if(hasCaptain)
+		    GameObject.Instantiate (ghostCaptainPref, transform.position,Quaternion.identity);
 		ghostState = true;
 		sprite.sprite = sprite1;
 	}

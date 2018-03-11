@@ -7,8 +7,8 @@ public class GhostCaptainLeg : MonoBehaviour {
 	public GameObject legToGivePref;
 	public Sprite sprite1;
 	public SpriteRenderer sprite;
-
-	bool taken = false;
+    public string legEventName;
+    bool taken = false;
 
 	// Use this for initialization
 	void Start () {
@@ -26,8 +26,9 @@ public class GhostCaptainLeg : MonoBehaviour {
 	public void TakeLeg(){
 		if (!taken) {
 			sprite.sprite = sprite1;
-			GameObject.Instantiate (legToGivePref, transform.position, Quaternion.identity);
-			taken = true;
+			var obj = GameObject.Instantiate (legToGivePref, transform.position, Quaternion.identity);
+            obj.GetComponent<LegToGive>().eventName = legEventName;
+            taken = true;
 		}
 		PlayerControl.Instance.SetEnableControls (false);
 	}

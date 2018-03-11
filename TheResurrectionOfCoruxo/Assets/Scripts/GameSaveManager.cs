@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class GameSaveManager : MonoBehaviour
 {
     public bool loadOnAwake = false;
@@ -70,7 +70,8 @@ public class GameSaveManager : MonoBehaviour
 
     public void SetEventOccurred(string eventName, bool occurred = true)
     {
-        Debug.Assert(!string.IsNullOrEmpty(eventName), "Event name should not be empty");
+        if (string.IsNullOrEmpty(eventName))
+            return;
             
         gameData.occurredEvents[eventName] = occurred;
         Save();
@@ -138,13 +139,15 @@ public class GameSaveManager : MonoBehaviour
             gameData = tmpGameData;
 
             file.Close();
+            print("Load at:" + filename);
         }
         else
         {
             ClearRecord();
+            print("Did you find saved data");
         }
 
-        print("Load at:" + filename);
+        
 
     }
 

@@ -20,6 +20,11 @@ public class MenuUI : MonoBehaviour {
 
 
 	public void StartGame(){
-		SceneManager.LoadScene (gameSceneName);
+        TCUtils.TCSceneTransitionHelper.Instance.StartLoadingScene(gameSceneName);
 	}
+    public void ContinueGame()
+    {
+        GameSaveManager.Instance.Load();
+        TCUtils.TCSceneTransitionHelper.Instance.StartLoadingScene(gameSceneName);
+    }
 }

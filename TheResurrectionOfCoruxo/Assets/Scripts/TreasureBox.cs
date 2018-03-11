@@ -50,7 +50,7 @@ public class TreasureBox : MonoBehaviour {
 		opened = true;
 		if (containTreasure == true) {
 			sprite.sprite = newSprite;
-			var obj = GameObject.Instantiate (ghostPref, transform.position + Vector3.up * 3,Quaternion.identity);
+			 GameObject.Instantiate (ghostPref, transform.position + Vector3.up * 3,Quaternion.identity);
             
         } else {
 			sprite.sprite = newSprite2;
@@ -63,7 +63,7 @@ public class TreasureBox : MonoBehaviour {
         if (containTreasure == true)
         {
             sprite.sprite = newSprite;
-            var obj = GameObject.Instantiate(ghostPref, transform.position + Vector3.up * 3, Quaternion.identity);
+             GameObject.Instantiate(ghostPref, transform.position + Vector3.up * 3, Quaternion.identity);
             treasureShown = true;
 
         }

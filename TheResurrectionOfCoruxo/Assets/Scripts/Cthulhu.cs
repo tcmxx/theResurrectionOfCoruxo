@@ -34,6 +34,8 @@ public class Cthulhu : MonoBehaviour {
 	[HideInInspector]
 	public bool wakeUp = false;
 
+    protected GameObject poopRef;
+
 	// Use this for initialization
 	void Start () {
 		currentLegs = 0;
@@ -82,9 +84,11 @@ public class Cthulhu : MonoBehaviour {
         if (currentLegs >= 8) {
 			CutSceneController.cutSceneController.PlayCutScene ();
 			ending.PlayOneShot (end, 0.6f);
+            GameSaveManager.Instance.ClearRecord();
 		}
 
         GameSaveManager.Instance.SetEventOccurred(eventName);
+        GamePlayUI.Instance.ShowSavedPanel();
 	}
 
 	public void LoseLeg(){
@@ -127,8 +131,23 @@ public class Cthulhu : MonoBehaviour {
 		}
 	}
 
-	void Poop(){
-		GameObject.Instantiate (poopPref,transform.position + Vector3.right * 2,Quaternion.identity);
+    public void OnFeedFishOccurred()
+    {
+        Poop();
+        grownLeg = true;
+        currentFedFished = 0;
+    }
+
+    public void OnCaptainOccurred()
+    {
+        poopPref = null;
+        if (poopRef)
+            poopRef.SetActive(false);
+    }
+
+    void Poop(){
+        if(poopPref != null)
+            poopRef = GameObject.Instantiate (poopPref,transform.position + Vector3.right * 2,Quaternion.identity);
 	}
 
 
