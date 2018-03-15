@@ -6,10 +6,14 @@ public class MenuUI : MonoBehaviour {
 
 	public string gameSceneName;
 
+    public GameObject continueButtonRef;
 
 	// Use this for initialization
 	void Start () {
-	
+        if (!GameSaveManager.Instance.HasSavedData())
+        {
+            continueButtonRef.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame

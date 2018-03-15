@@ -63,7 +63,7 @@ public class GamePlayUI : MonoBehaviour {
     public void ShowSavedPanel()
     {
         savedPanelRef.SetActive(true);
-        Invoke("DiactiveSavedPanel", 2);
+        Invoke("DiactiveSavedPanel", 4);
         
     }
 

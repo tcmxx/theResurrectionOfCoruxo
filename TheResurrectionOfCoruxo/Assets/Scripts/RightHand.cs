@@ -66,6 +66,7 @@ public class RightHand : MonoBehaviour {
             if (currentInteracable)
             {
                 currentInteracable.OnClickUp.Invoke();
+                currentInteracable = null;
             }
         }
 

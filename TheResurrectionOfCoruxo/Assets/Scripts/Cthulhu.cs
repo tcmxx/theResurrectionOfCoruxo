@@ -58,7 +58,8 @@ public class Cthulhu : MonoBehaviour {
         {
             legs[currentLegs].SetActive(true);
             currentLegs++;
-            CameraMove.Instance.Unlock(currentLegs);
+            if (currentLegs != 6)
+                CameraMove.Instance.Unlock(currentLegs);
         }
 
         if(events.Count > 0)
@@ -78,17 +79,20 @@ public class Cthulhu : MonoBehaviour {
 			PlayerControl.Instance.LoseTorch ();
 		}
 
+        
 		legs [currentLegs].SetActive (true);
 		currentLegs++;
-        CameraMove.Instance.Unlock(currentLegs);
+        if (currentLegs != 6)
+            CameraMove.Instance.Unlock(currentLegs);
         if (currentLegs >= 8) {
 			CutSceneController.cutSceneController.PlayCutScene ();
 			ending.PlayOneShot (end, 0.6f);
             GameSaveManager.Instance.ClearRecord();
 		}
-
-        GameSaveManager.Instance.SetEventOccurred(eventName);
-        GamePlayUI.Instance.ShowSavedPanel();
+        if(!string.IsNullOrEmpty(eventName)){
+            GameSaveManager.Instance.SetEventOccurred(eventName);
+            GamePlayUI.Instance.ShowSavedPanel();
+        }
 	}
 
 	public void LoseLeg(){

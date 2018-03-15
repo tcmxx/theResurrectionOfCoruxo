@@ -13,7 +13,9 @@ public class DraggableLivingLeg : MonoBehaviour {
     public GameObject legToGivePref;
 
 	public Cthulhu cthulhu;
-
+    public Sprite angrySprite;
+    public Sprite normalSprite;
+    public SpriteRenderer rendererRef;
 
 	Vector3 initialPosition;
 
@@ -36,7 +38,10 @@ public class DraggableLivingLeg : MonoBehaviour {
 	public void OnDragStart(){
 		dragging = true;
         transform.localScale *= activeScale;
-
+        if(rendererRef != null && angrySprite != null)
+        {
+            rendererRef.sprite = angrySprite;
+        }
     }
 
 	public void OnDragging(){
@@ -66,6 +71,10 @@ public class DraggableLivingLeg : MonoBehaviour {
 	public void OnDragEnd(){
 		GoBack ();
         transform.localScale /= activeScale;
+        if (rendererRef != null && normalSprite != null)
+        {
+            rendererRef.sprite = normalSprite;
+        }
     }
 
 
@@ -82,8 +91,9 @@ public class DraggableLivingLeg : MonoBehaviour {
 		transform.position = initialPosition;
 		gameObject.SetActive (false);
 		cthulhu.LoseLeg ();
-        CanBeDragDown = false;
-
+        //CanBeDragDown = false;
+        dragTimes = 0;
+        dragging = false;
     }
 
 	void GoBack(){

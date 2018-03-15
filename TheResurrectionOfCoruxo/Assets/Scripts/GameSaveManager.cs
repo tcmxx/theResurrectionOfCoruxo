@@ -151,7 +151,12 @@ public class GameSaveManager : MonoBehaviour
 
     }
 
+    public bool HasSavedData()
+    {
+        string filename = Path.Combine(Application.persistentDataPath, "save.dat");
 
+        return File.Exists(filename);
+    }
 
     public void ClearRecord()
     {

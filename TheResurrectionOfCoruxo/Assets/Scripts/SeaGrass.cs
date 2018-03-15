@@ -18,5 +18,7 @@ public class SeaGrass : MonoBehaviour {
 	public void Grow(){
 
 		transform.localScale += Vector3.up * 5;
+        transform.localPosition += Vector3.up * 2;
+        CameraMove.Instance.Unlock(6);
 	}
 }
